@@ -1,0 +1,76 @@
+diff --git PSOPT/src/plot.cxx PSOPT/src/plot.cxx
+index bed949b..3f5408e 100644
+--- PSOPT/src/plot.cxx
++++ PSOPT/src/plot.cxx
+@@ -123,7 +123,7 @@ void plot(DMatrix& xa, DMatrix& ya, const string& title, const char* xlabel, con
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 
+@@ -228,7 +228,7 @@ void multiplot(DMatrix& xa, DMatrix& ya, const string& title, const char* xlabel
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot layout %i,%i columnsfirst", nnrows,nncols);
+ 
+@@ -359,7 +359,7 @@ void plot(DMatrix& x1a, DMatrix& y1a, DMatrix& x2a, DMatrix& y2a, const string&
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 
+@@ -499,7 +499,7 @@ void spplot(DMatrix& x1a, DMatrix& y1a, DMatrix& x2a, DMatrix& y2a, const string
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 
+@@ -644,7 +644,7 @@ void plot(DMatrix& x1a, DMatrix& y1a, DMatrix& x2a, DMatrix& y2a, DMatrix& x3a,
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 
+@@ -824,7 +824,7 @@ void polar(DMatrix& theta_a, DMatrix& r_a, const string& title,  const char* leg
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 
+@@ -921,7 +921,7 @@ void polar(DMatrix& theta_a, DMatrix& r_a, DMatrix& theta2_a, DMatrix& r2_a, con
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 
+@@ -1074,7 +1074,7 @@ void polar(DMatrix& theta_a, DMatrix& r_a, DMatrix& theta2_a, DMatrix& r2_a, DMa
+ 
+          if (output!=NULL) fprintf(gscript,"\nset output \"%s\"", output);
+ 
+-         fprintf(gscript,"\nset data style lines");
++         fprintf(gscript,"\nset style data lines");
+ 
+          fprintf(gscript,"\nset multiplot");
+ 

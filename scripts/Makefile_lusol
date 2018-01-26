@@ -1,0 +1,20 @@
+OBJS = lusol.o  mmio.o commonlib.o lusolio.o hbio.o myblas.o
+LIB = liblusol.a
+
+CFLAGS = -DYZHANG -DNDEBUG -Wall -fexceptions -pthread -ansi -fPIC
+
+all: $(LIB)
+
+$(LIB): $(OBJS)
+	$(AR) crD $(LIB) $(OBJS)
+
+.c.o: %.c
+	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+clean:
+	$(RM) -f $(OBJS)
+
+distclean: clean
+	$(RM) $(LIB)
+
+

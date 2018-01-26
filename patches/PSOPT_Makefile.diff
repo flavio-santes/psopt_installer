@@ -1,0 +1,64 @@
+diff --git Makefile Makefile
+index 2d73aab..8651b4c 100644
+--- Makefile
++++ Makefile
+@@ -19,19 +19,18 @@
+ export PSOPT_ROOT = $(CURDIR)
+ 
+ # Dependencies
+-export CXSPARSE_DIR = $(PSOPT_ROOT)/SuiteSparse/CXSparse
+-export LUSOL_DIR = $(PSOPT_ROOT)/lusol/csrc
+ export DMATRIX_DIR= $(PSOPT_ROOT)/dmatrix
+ export DMATRIX_LIB = $(DMATRIX_DIR)/lib/libdmatrix.a
+ 
+-IPOPT_DIR = $(HOME)/Ipopt-3.12.3
+-IPOPT_LIB_DIR = $(IPOPT_DIR)/lib
++ADOLC_LIB =		\
++	-ladolc		\
++	-lColPack
+ 
+-ADOLC_LIB =			\
+-	/usr/lib/libadolc.a	\
+-	/usr/lib/libColPack.a
+-CXSPARSE_LIB = $(CXSPARSE_DIR)/Lib/libcxsparse.a
+-LUSOL_LIB = $(LUSOL_DIR)/liblusol.a
++CXSPARSE_LIB =		\
++	-lcxsparse
++
++LUSOL_LIB =		\
++	-llusol
+ 
+ # PSOPT stuff
+ export PSOPT_DIR = $(PSOPT_ROOT)/PSOPT
+@@ -116,17 +115,10 @@ lib: $(DMATRIX_LIB)
+ examples: lib
+ 	cd $(EXAMPLES_DIR) && $(MAKE)
+ 
+-test:
++test: examples
+ 	cd $(EXAMPLES_DIR)/launch && ./launch
+ 
+-$(LUSOL_LIB):
+-	cp Makefile.lusol $(LUSOL_DIR)/Makefile
+-	cd $(LUSOL_DIR) && $(MAKE)
+-
+-$(CXSPARSE_LIB):
+-	cd $(CXSPARSE_DIR) && $(MAKE)
+-
+-$(DMATRIX_LIB): $(LUSOL_LIB) $(CXSPARSE_LIB)
++$(DMATRIX_LIB):
+ 	cd $(DMATRIX_DIR)/lib && $(MAKE)
+ 
+ dmatrix_examples: $(DMATRIX_LIB)
+@@ -138,10 +130,6 @@ clean:
+ 	cd $(PSOPT_DIR)/lib && $(MAKE) clean
+ 	cd $(EXAMPLES_DIR) && $(MAKE) clean
+ 
+-distclean: clean
+-	cd $(CXSPARSE_DIR)/Lib && $(MAKE) clean
+-	cd $(LUSOL_DIR) && $(MAKE) clean
+-
+-.PHONY: all lib examples test dmatrix_examples clean distclean
++.PHONY: all lib examples test dmatrix_examples clean
+ 
+ 

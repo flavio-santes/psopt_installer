@@ -1,0 +1,2509 @@
+diff --git Makefile.cxsparse.vc Makefile.cxsparse.vc
+deleted file mode 100644
+index 99d9b1d..0000000
+--- Makefile.cxsparse.vc
++++ /dev/null
+@@ -1,92 +0,0 @@
+-# Modify the "-O" optimization option for best performance (-O3 on Linux):
+-CC = cl
+-# CFLAGS =  /O2 /DCS_LONG  /c /DNCOMPLEX
+-CFLAGS = /O2 /c /DNCOMPLEX
+-I =  /I..\Include 
+-
+-AR = lib
+-
+-
+-all: libcxsparse.lib
+-
+-CS_SOURCE =  cs_add.c cs_amd.c cs_chol.c cs_cholsol.c cs_counts.c cs_cumsum.c \
+-	cs_droptol.c cs_dropzeros.c cs_dupl.c cs_entry.c \
+-	cs_etree.c cs_fkeep.c cs_gaxpy.c cs_happly.c cs_house.c cs_ipvec.c \
+-	cs_lsolve.c cs_ltsolve.c cs_lu.c cs_lusol.c cs_util.c cs_multiply.c \
+-	cs_permute.c cs_pinv.c cs_post.c cs_pvec.c cs_qr.c cs_qrsol.c \
+-	cs_scatter.c cs_schol.c cs_sqr.c cs_symperm.c cs_tdfs.c cs_malloc.c \
+-	cs_transpose.c cs_compress.c cs_usolve.c cs_utsolve.c cs_scc.c \
+-	cs_maxtrans.c cs_dmperm.c cs_updown.c cs_print.c cs_norm.c cs_load.c \
+-	cs_dfs.c cs_reach.c cs_spsolve.c cs_leaf.c cs_ereach.c cs_randperm.c
+-
+-
+-
+-CS_DI_OBJ =   cs_add.obj cs_amd.obj cs_chol.obj cs_cholsol.obj cs_counts.obj \
+-	cs_cumsum.obj cs_droptol.obj cs_dropzeros.obj cs_dupl.obj \
+-	cs_entry.obj cs_etree.obj cs_fkeep.obj cs_gaxpy.obj cs_happly.obj \
+-	cs_house.obj cs_ipvec.obj cs_lsolve.obj cs_ltsolve.obj cs_lu.obj \
+-	cs_lusol.obj cs_util.obj cs_multiply.obj cs_permute.obj cs_pinv.obj \
+-	cs_post.obj cs_pvec.obj cs_qr.obj cs_qrsol.obj cs_scatter.obj \
+-	cs_schol.obj cs_sqr.obj cs_symperm.obj cs_tdfs.obj cs_malloc.obj \
+-	cs_transpose.obj cs_compress.obj cs_usolve.obj cs_utsolve.obj \
+-	cs_scc.obj cs_maxtrans.obj cs_dmperm.obj cs_updown.obj cs_print.obj \
+-	cs_norm.obj cs_load.obj cs_dfs.obj cs_reach.obj cs_spsolve.obj \
+-	cs_leaf.obj cs_ereach.obj cs_randperm.obj
+-
+-CS_DL_OBJ =  cs_add_dl.obj cs_amd_dl.obj cs_chol_dl.obj cs_cholsol_dl.obj cs_counts_dl.obj \
+-	cs_cumsum_dl.obj cs_droptol_dl.obj cs_dropzeros_dl.obj cs_dupl_dl.obj \
+-	cs_entry_dl.obj cs_etree_dl.obj cs_fkeep_dl.obj cs_gaxpy_dl.obj cs_happly_dl.obj \
+-	cs_house_dl.obj cs_ipvec_dl.obj cs_lsolve_dl.obj cs_ltsolve_dl.obj cs_lu_dl.obj \
+-	cs_lusol_dl.obj cs_util_dl.obj cs_multiply_dl.obj cs_permute_dl.obj cs_pinv_dl.obj \
+-	cs_post_dl.obj cs_pvec_dl.obj cs_qr_dl.obj cs_qrsol_dl.obj cs_scatter_dl.obj \
+-	cs_schol_dl.obj cs_sqr_dl.obj cs_symperm_dl.obj cs_tdfs_dl.obj cs_malloc_dl.obj \
+-	cs_transpose_dl.obj cs_compress_dl.obj cs_usolve_dl.obj cs_utsolve_dl.obj \
+-	cs_scc_dl.obj cs_maxtrans_dl.obj cs_dmperm_dl.obj cs_updown_dl.obj cs_print_dl.obj \
+-	cs_norm_dl.obj cs_load_dl.obj cs_dfs_dl.obj cs_reach_dl.obj cs_spsolve_dl.obj \
+-	cs_leaf_dl.obj cs_ereach_dl.obj cs_randperm_dl.obj
+-
+-CS_CI_OBJ =  cs_add_ci.obj cs_amd_ci.obj cs_chol_ci.obj cs_cholsol_ci.obj cs_counts_ci.obj \
+-	cs_cumsum_ci.obj cs_droptol_ci.obj cs_dropzeros_ci.obj cs_dupl_ci.obj \
+-	cs_entry_ci.obj cs_etree_ci.obj cs_fkeep_ci.obj cs_gaxpy_ci.obj cs_happly_ci.obj \
+-	cs_house_ci.obj cs_ipvec_ci.obj cs_lsolve_ci.obj cs_ltsolve_ci.obj cs_lu_ci.obj \
+-	cs_lusol_ci.obj cs_util_ci.obj cs_multiply_ci.obj cs_permute_ci.obj cs_pinv_ci.obj \
+-	cs_post_ci.obj cs_pvec_ci.obj cs_qr_ci.obj cs_qrsol_ci.obj cs_scatter_ci.obj \
+-	cs_schol_ci.obj cs_sqr_ci.obj cs_symperm_ci.obj cs_tdfs_ci.obj cs_malloc_ci.obj \
+-	cs_transpose_ci.obj cs_compress_ci.obj cs_usolve_ci.obj cs_utsolve_ci.obj \
+-	cs_scc_ci.obj cs_maxtrans_ci.obj cs_dmperm_ci.obj cs_updown_ci.obj cs_print_ci.obj \
+-	cs_norm_ci.obj cs_load_ci.obj cs_dfs_ci.obj cs_reach_ci.obj cs_spsolve_ci.obj \
+-	cs_leaf_ci.obj cs_ereach_ci.obj cs_randperm_ci.obj
+-
+-CS_CL_OBJ =  cs_add_cl.obj cs_amd_cl.obj cs_chol_cl.obj cs_cholsol_cl.obj cs_counts_cl.obj \
+-	cs_cumsum_cl.obj cs_droptol_cl.obj cs_dropzeros_cl.obj cs_dupl_cl.obj \
+-	cs_entry_cl.obj cs_etree_cl.obj cs_fkeep_cl.obj cs_gaxpy_cl.obj cs_happly_cl.obj \
+-	cs_house_cl.obj cs_ipvec_cl.obj cs_lsolve_cl.obj cs_ltsolve_cl.obj cs_lu_cl.obj \
+-	cs_lusol_cl.obj cs_util_cl.obj cs_multiply_cl.obj cs_permute_cl.obj cs_pinv_cl.obj \
+-	cs_post_cl.obj cs_pvec_cl.obj cs_qr_cl.obj cs_qrsol_cl.obj cs_scatter_cl.obj \
+-	cs_schol_cl.obj cs_sqr_cl.obj cs_symperm_cl.obj cs_tdfs_cl.obj cs_malloc_cl.obj \
+-	cs_transpose_cl.obj cs_compress_cl.obj cs_usolve_cl.obj cs_utsolve_cl.obj \
+-	cs_scc_cl.obj cs_maxtrans_cl.obj cs_dmperm_cl.obj cs_updown_cl.obj cs_print_cl.obj \
+-	cs_norm_cl.obj cs_load_cl.obj cs_dfs_cl.obj cs_reach_cl.obj cs_spsolve_cl.obj \
+-	cs_leaf_cl.obj cs_ereach_cl.obj cs_randperm_cl.obj
+-
+-CS = $(CS_DI_OBJ)
+-
+-# $(CS): Makefile.vc *.c
+-
+-
+-.c.obj: 
+-	$(CC) -c $(CFLAGS) $(I) %s /Fo$*.obj
+-
+-
+-libcxsparse.lib: $(CS)
+-	$(AR) -out:libcxsparse.lib $(CS_DI_OBJ)
+-	copy libcxsparse.lib ..\lib
+-
+-
+-clean:
+-	del  *.obj
+-
+-purge: distclean
+-
+-distclean: clean
+-	del  *.lib
+diff --git Makefile.ipopt Makefile.ipopt
+deleted file mode 100644
+index 2eadc8b..0000000
+--- Makefile.ipopt
++++ /dev/null
+@@ -1,199 +0,0 @@
+-SHELL         = /bin/sh
+-USERHOME      = ~
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-DMATRIXDIR=./dmatrix
+-CXSPARSE=./SuiteSparse/CXSparse
+-LUSOL=./lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.12.3
+-# Directory with header files
+-IPOPTINCDIR = ${prefix}/include/coin
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ./PSOPT
+-
+-PSOPTSRCDIR = $(PSOPTDIR)/src
+-EXAMPLESDIR = $(PSOPTDIR)/examples
+-CXSPARSE_LIBS = $(CXSPARSE)/Lib/libcxsparse.a
+-LUSOL_LIBS    = $(LUSOL)/liblusol.a
+-SPARSE_LIBS   = $(CXSPARSE_LIBS) $(LUSOL_LIBS) -ldl
+-ADOLC_LIBS    = -ladolc
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-
+-$(CXSPARSE_LIBS):
+-# 	(cp UFconfig.h $(CXSPARSE)/Include;cd $(CXSPARSE)/Lib; $(MAKE))
+-	(cd $(CXSPARSE);cd ..;$(MAKE))
+-
+-$(LUSOL_LIBS):
+-	(cp Makefile.lusol $(LUSOL)/Makefile; cd $(LUSOL); $(MAKE))
+-
+-$(DMATRIX_LIBS): $(DMATRIXDIR)/src/dmatrixv.cxx $(DMATRIXDIR)/include/dmatrixv.h
+-	(cd $(DMATRIXDIR)/lib; $(MAKE))
+-
+-
+-dmatrix_examples:
+-	(cd $(DMATRIXDIR)/examples; $(MAKE) all)
+-
+-$(PSOPT_LIBS):
+-	(cd $(PSOPTDIR)/lib; $(MAKE))
+-
+-bioreactor:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-brac1:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-shutt:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-manutec:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-missile:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-moon:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-stc1:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-brymr:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twoburn:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twolink:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twophsc:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twophro:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-hyper:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-launch:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-lambert:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-bryden:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-delay1:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-goddard:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-steps:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-sing5:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-climb:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-cracking:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-isop:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-catmix:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-chain:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-obstacle:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-crane:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-ipc:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-alpine:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-lts:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-user:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-coulomb:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-lowthr:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-heat:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-zpm:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-glider:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-notorious:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-reorientation:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-mpec:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-dae_i3:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-breakwell:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-rayleigh:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-test: launch
+-	(cd $(EXAMPLESDIR)/launch; ./launch)
+-
+-
+-all: $(CXSPARSE_LIBS) $(DMATRIX_LIBS) $(LUSOL_LIBS) $(PSOPT_LIBS) dmatrix_examples bioreactor brac1 shutt manutec missile moon stc1 sing5 steps brymr twoburn twolink twophsc twophro hyper launch lambert bryden delay1 goddard sing5 climb cracking isop catmix chain obstacle crane ipc alpine lts user  coulomb lowthr heat zpm glider notorious reorientation mpec dae_i3 breakwell rayleigh test
+-
+-
+-clean:
+-
+-	(cd $(DMATRIXDIR)/lib; $(MAKE) clean)
+-	(cd $(CXSPARSE)/Lib; $(MAKE) clean)
+-	(cd $(LUSOL); $(MAKE) clean)
+-	(cd $(DMATRIXDIR)/examples; $(MAKE) clean)
+-	(cd $(PSOPTDIR)/lib; $(MAKE) clean)
+-
+-
+-distclean:
+-
+-	(cd $(DMATRIXDIR)/lib; $(MAKE) distclean)
+-	(cd $(CXSPARSE)/Lib; $(MAKE) distclean)
+-	(cd $(LUSOL); $(MAKE) clean)
+-	(cd $(DMATRIXDIR)/examples; $(MAKE) distclean)
+-	(cd $(PSOPTDIR)/lib; $(MAKE) distclean)
+-
+-
+diff --git Makefile.lusol Makefile.lusol
+deleted file mode 100644
+index 2d01d73..0000000
+--- Makefile.lusol
++++ /dev/null
+@@ -1,33 +0,0 @@
+-# Modify the "-O" optimization option for best performance (-O3 on Linux):
+-CC = gcc
+-CFLAGS = -DYZHANG -DNDEBUG -Wall -fexceptions -pthread -ansi -fPIC -O3
+-I = -I.
+-
+-AR = ar cr
+-RANLIB = ranlib
+-
+-all: liblusol.a 
+-
+-LUSOL_SOURCE  =  lusol.c  mmio.c commonlib.c lusolio.c hbio.c myblas.c 
+-LUSOL_OBJ     =  lusol.o  mmio.o commonlib.o lusolio.o hbio.o myblas.o 
+-LUSOL_LIB_OBJ =  lusol.o  mmio.o commonlib.o lusolio.o hbio.o myblas.o 
+-
+-LUSOL_LIB    = liblusol.a
+-
+-
+-.c.o: %.c
+-	$(CC) $(CFLAGS) $(I) -c $< -o $@
+-
+-$(LUSOL_LIB): $(LUSOL_LIB_OBJ)
+-	$(AR) $(LUSOL_LIB) $(LUSOL_LIB_OBJ)
+-	$(RANLIB) $(LUSOL_LIB)
+-	cp liblusol.a ..
+-
+-
+-clean:
+-	rm -f *.o
+-
+-purge: distclean
+-
+-distclean: 
+-	rm -f *.a
+diff --git Makefile.lusol.vc Makefile.lusol.vc
+deleted file mode 100644
+index 022beeb..0000000
+--- Makefile.lusol.vc
++++ /dev/null
+@@ -1,31 +0,0 @@
+-# Modify the "-O" optimization option for best performance (-O3 on Linux):
+-CC = CL
+-CFLAGS = -DYZHANG -DNDEBUG   -fPIC -O2 -DWIN32
+-I = -I.
+-
+-AR = lib
+-
+-
+-all: liblusol.lib 
+-
+-LUSOL_SOURCE  =  lusol.c  mmio.c commonlib.c lusolio.c hbio.c myblas.c 
+-LUSOL_OBJ     =  lusol.obj  mmio.obj commonlib.obj lusolio.obj hbio.obj myblas.obj 
+-LUSOL_LIB_OBJ =  lusol.obj  mmio.obj commonlib.obj lusolio.obj hbio.obj myblas.obj
+-
+-LUSOL_LIB    = liblusol.lib
+-
+-
+-.c.o:
+-	$(CC) $(CFLAGS) $(I) -c $< -o $@
+-
+-$(LUSOL_LIB): $(LUSOL_LIB_OBJ)
+-	$(AR) -out:$(LUSOL_LIB) $(LUSOL_LIB_OBJ)
+-	copy liblusol.lib ..
+-
+-
+-clean:
+-	del  *.obj
+-
+-distclean: 
+-	del *.lib
+-	del ..\*.lib
+diff --git Makefile.snopt Makefile.snopt
+deleted file mode 100644
+index f8ca021..0000000
+--- Makefile.snopt
++++ /dev/null
+@@ -1,204 +0,0 @@
+-SHELL         = /bin/sh
+-USERHOME      = ~
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-DMATRIXDIR=./dmatrix
+-CXSPARSE=./SuiteSparse/CXSparse
+-LUSOL=./lusol/csrc
+-SNOPTDIR=$(USERHOME)/snopt7
+-
+-prefix = $(USERHOME)/Ipopt-3.12.3
+-# Directory with header files
+-IPOPTINCDIR = ${prefix}/include/coin
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ./PSOPT
+-
+-PSOPTSRCDIR = $(PSOPTDIR)/src
+-EXAMPLESDIR = $(PSOPTDIR)/examples
+-CXSPARSE_LIBS = $(CXSPARSE)/Lib/libcxsparse.a
+-LUSOL_LIBS    = $(LUSOL)/liblusol.a
+-SPARSE_LIBS   = $(CXSPARSE_LIBS) $(LUSOL_LIBS) -ldl
+-ADOLC_LIBS    = -ladolc
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-SNOPT_LIBS    = $(SNOPTDIR)/lib/libsnopt_cpp.a $(SNOPTDIR)/lib/libblas.a
+-
+-
+-# $(CXSPARSE_LIBS):
+-# 	(cp UFconfig.h $(CXSPARSE)/Include;cd $(CXSPARSE)/Lib; $(MAKE))
+-$(CXSPARSE_LIBS):
+-	(cd $(CXSPARSE); $(MAKE) library )
+-
+-$(LUSOL_LIBS):
+-	(cp Makefile.lusol $(LUSOL)/Makefile; cd $(LUSOL); $(MAKE))
+-
+-$(DMATRIX_LIBS): $(DMATRIXDIR)/src/dmatrixv.cxx $(DMATRIXDIR)/include/dmatrixv.h
+-	(cd $(DMATRIXDIR)/lib; $(MAKE))
+-
+-
+-dmatrix_examples:
+-	(cd $(DMATRIXDIR)/examples; $(MAKE) all)
+-
+-$(PSOPT_LIBS):
+-	(cd $(PSOPTDIR)/lib; $(MAKE))
+-
+-bioreactor:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-brac1:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-shutt:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-manutec:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-missile:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-moon:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-stc1:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-brymr:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twoburn:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twolink:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twophsc:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-twophro:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-hyper:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-
+-launch:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-lambert:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-bryden:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-delay1:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-goddard:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-steps:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-sing5:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-climb:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-cracking:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-isop:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-catmix:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-chain:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-obstacle:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-crane:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-ipc:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-alpine:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-lts:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-user:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-coulomb:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-lowthr:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-heat:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-zpm:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-glider:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-notorious:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-reorientation:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-mpec:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-dae_i3:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-breakwell:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-rayleigh:
+-	(cd $(EXAMPLESDIR)/$@; make $@)
+-
+-test: launch
+-	(cd $(EXAMPLESDIR)/launch; ./launch)
+-
+-
+-all: $(CXSPARSE_LIBS) $(DMATRIX_LIBS) $(LUSOL_LIBS) $(PSOPT_LIBS) dmatrix_examples bioreactor brac1 shutt manutec missile moon stc1 sing5 steps brymr twoburn twolink twophsc twophro hyper launch lambert bryden delay1 goddard sing5 climb cracking isop catmix chain obstacle crane ipc alpine lts user  coulomb lowthr heat zpm glider notorious reorientation mpec dae_i3 breakwell rayleigh test
+-
+-
+-clean:
+-
+-	(cd $(DMATRIXDIR)/lib; $(MAKE) clean)
+-	(cd $(CXSPARSE)/Lib; $(MAKE) clean)
+-	(cd $(LUSOL); $(MAKE) clean)
+-	(cd $(DMATRIXDIR)/examples; $(MAKE) clean)
+-	(cd $(PSOPTDIR)/lib; $(MAKE) clean)
+-
+-
+-distclean:
+-
+-	(cd $(DMATRIXDIR)/lib; $(MAKE) distclean)
+-	(cd $(CXSPARSE)/Lib; $(MAKE) distclean)
+-	(cd $(LUSOL); $(MAKE) clean)
+-	(cd $(DMATRIXDIR)/examples; $(MAKE) distclean)
+-	(cd $(PSOPTDIR)/lib; $(MAKE) distclean)
+-
+-
+-
+diff --git Makefile.vc Makefile.vc
+deleted file mode 100755
+index 4af0235..0000000
+--- Makefile.vc
++++ /dev/null
+@@ -1,533 +0,0 @@
+-# PSOPT Makefile
+-
+-all: libcxsparse.lib liblusol.lib libdmatrix.lib libpsopt.lib dmatrix_examples launch  shutt  \
+-moon stc1 brymr  twolink  twophsc  twophro hyper bryden delay1 goddard sing5 climb cracking   \
+-isop catmix chain obstacle crane ipc alpine lts user coulomb  heat lambert bioreactor lowthr  \
+-manutec missile steps twoburn notorious glider reorientation mpec zpm
+-
+-libcxsparse.lib:
+-	copy UFconfig.h CXSparse\Include
+-       copy Makefile.cxsparse.vc CXSparse\Source\Makefile.vc
+-	 cd CXSparse\Source
+-       $(MAKE) -f Makefile.vc
+-       cd ..\..
+-
+-liblusol.lib:
+-#      cscript update_myblas_h.vbs
+-      copy Makefile.lusol.vc lusol\csrc\Makefile.vc
+-	cd lusol\csrc
+-	$(MAKE) -f Makefile.vc
+-      cd ..\..
+-
+-libdmatrix.lib:
+-	cd dmatrix\lib
+-       $(MAKE) -f Makefile.vc
+-       cd ..\..
+-
+-libpsopt.lib:
+-	cd PSOPT\lib
+-      $(MAKE) -f Makefile.vc
+-	cd ..\..
+-
+-dmatrix_examples:
+-	cd dmatrix\examples
+-      $(MAKE) -f Makefile.vc all
+-	cd ..\..
+-
+-launch:
+-	cd PSOPT\examples\launch
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-brac1:
+-	cd PSOPT\examples\brac1
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-shutt:
+-	cd PSOPT\examples\shutt
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-moon:
+-	cd PSOPT\examples\moon
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-stc1:
+-	cd PSOPT\examples\stc1
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-
+-brymr:
+-	cd PSOPT\examples\brymr
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-twolink:
+-	cd PSOPT\examples\twolink
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-twophsc:
+-	cd PSOPT\examples\twophsc
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-
+-twophro:
+-	cd PSOPT\examples\twophro
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-hyper:
+-	cd PSOPT\examples\hyper
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-
+-bryden:
+-	cd PSOPT\examples\bryden
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-delay1:
+-	cd PSOPT\examples\delay1
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-goddard:
+-	cd PSOPT\examples\goddard
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-sing5:
+-	cd PSOPT\examples\sing5
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-climb:
+-	cd PSOPT\examples\climb
+-      $(MAKE) -f Makefile.vc
+- 	cd ..\..\..
+-
+-cracking:
+-	cd PSOPT\examples\cracking
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-isop:
+-	cd PSOPT\examples\isop
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-crane:
+-	cd PSOPT\examples\crane
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-ipc:
+-	cd PSOPT\examples\ipc
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-catmix:
+-	cd PSOPT\examples\catmix
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-chain:
+-	cd PSOPT\examples\chain
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-obstacle:
+-	cd PSOPT\examples\obstacle
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-alpine:
+-	cd PSOPT\examples\alpine
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-lts:
+-	cd PSOPT\examples\lts
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-user:
+-	cd PSOPT\examples\user
+-	$(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-coulomb:
+-	cd PSOPT\examples\coulomb
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-heat:
+-	cd PSOPT\examples\heat
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-lambert:
+-	cd PSOPT\examples\lambert
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-bioreactor:
+-	cd PSOPT\examples\bioreactor
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-lowthr:
+-	cd PSOPT\examples\lowthr
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-manutec:
+-	cd PSOPT\examples\manutec
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-missile:
+-	cd PSOPT\examples\missile
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-steps:
+-	cd PSOPT\examples\steps
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-twoburn:
+-	cd PSOPT\examples\twoburn
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-zpm:
+-	cd PSOPT\examples\zpm
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-glider:
+-	cd PSOPT\examples\glider
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-notorious:
+-	cd PSOPT\examples\notorious
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-reorientation:
+-	cd PSOPT\examples\reorientation
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-mpec:
+-	cd PSOPT\examples\mpec
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-dae_i3:
+-	cd PSOPT\examples\dae_i3
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-breakwell:
+-	cd PSOPT\examples\breakwell
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-rayleigh:
+-	cd PSOPT\examples\rayleigh
+-      $(MAKE) -f Makefile.vc all
+- 	cd ..\..\..
+-
+-
+-clean:
+-	cd CXSparse\Source
+-	$(MAKE) -f Makefile.vc clean
+-	cd ..\..
+-	cd lusol\csrc
+-	$(MAKE) -f Makefile.vc clean
+-	cd ..
+-	cd dmatrix\lib
+-	$(MAKE) -f Makefile.vc clean
+-	cd ..\..
+-	cd PSOPT\src
+-	del *.obj
+-	cd ..\..
+-	cd dmatrix\examples
+-	$(MAKE) -f Makefile.vc clean
+-	cd ..\..
+-	cd PSOPT\examples\launch
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\brac1
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\shutt
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\moon
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\stc1
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\brymr
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\twolink
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\twophsc
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\twophro
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\hyper
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\mphdr
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\param
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\bryden
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\delay1
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\goddard
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\sing5
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\climb
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\cracking
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\isop
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\crane
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\ipc
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\catmix
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\chain
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\obstacle
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\alpine
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\lts
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\user
+-	del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\coulomb
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\heat
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\lambert
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\bioreactor
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\lowthr
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\manutec
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\missile
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\steps
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\twoburn
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\zpm
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\glider
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\notorious
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\reorientation
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\mpec
+-        del *.obj
+- 	cd ..\..\..
+-	cd PSOPT\examples\dae_i3
+-        del *.obj
+- 	cd ..\..\..
+-
+-
+-distclean:
+-	cd CXSparse\Source
+-	$(MAKE) -f Makefile.vc distclean
+-	cd ..\..
+-	cd lusol\csrc
+-	$(MAKE) -f Makefile.vc distclean
+-	cd ..
+-	cd dmatrix\lib
+-	$(MAKE) -f Makefile.vc distclean
+-	cd ..\..
+-	cd PSOPT\lib
+-	del *.lib
+-	cd ..\..
+-	cd dmatrix\examples
+-	$(MAKE) -f Makefile.vc distclean
+-	cd ..\..
+-	cd PSOPT\examples\launch
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\brac1
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\shutt
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\moon
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\stc1
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\brymr
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\twolink
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\twophsc
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\twophro
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\hyper
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\bryden
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\delay1
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\goddard
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\sing5
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\climb
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\cracking
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\isop
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\crane
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\ipc
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\catmix
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\chain
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\obstacle
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\alpine
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\lts
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\user
+-	del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\coulomb
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\heat
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\lambert
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\bioreactor
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\lowthr
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\manutec
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\missile
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\steps
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\twoburn
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\zpm
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\glider
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\notorious
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\reorientation
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\mpec
+-        del *.exe
+- 	cd ..\..\..
+-	cd PSOPT\examples\dae_i3
+-        del *.exe
+- 	cd ..\..\..
+-
+-
+-
+diff --git MicrosoftVisualStudio.inc MicrosoftVisualStudio.inc
+deleted file mode 100755
+index b5cf877..0000000
+--- MicrosoftVisualStudio.inc
++++ /dev/null
+@@ -1,61 +0,0 @@
+-# SUITABLE COMPILERS: MICROSOFT VISUAL STUDIO 2005 and 2008
+-#
+-# SUITABLE WINDOWS VERSIONS: XP, VISTA AND 7 (32 and 64 BIT)
+-#
+-#
+-#
+-# NOTE: THE DEFAULT CONFIGURATION IS:
+-# MICROSOFT VISUAL STUDIO 2010 UNDER A 64 BIT VERSION OF WINDOWS
+-#
+-
+-# DEFAULT CONFIGURATION: MS VISUAL STUDIO 2010, 64 BIT WINDOWS 
+-
+-# IMPORTANT: COMMENT OUT THESE THREE LINES IF THIS VERSION IS NOT NOT USED
+-
+-VCINCLUDE = "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include"
+-
+-WINDOWS_H = "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Include"
+-
+-VCSDK  = "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Include"
+-
+-
+-# UNCOMMENT THE FOLLOWING LINES TO USE MS VISUAL STUDIO 2008, 64 BIT WINDOWS 
+-
+-# IMPORTANT: COMMENT OUT THESE THREE LINES IF THIS VERSION IS NOT NOT USED
+-
+-# VCINCLUDE = "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+-
+-# WINDOWS_H = "C:\Program Files (x86)\Microsoft Visual Studio 9.0\SmartDevices\SDK\Smartphone2003\Include"
+-
+-# VCSDK  = "C:\Program Files (x86)\Microsoft Visual Studio 9.0\SmartDevices\SDK\Smartphone2003\Include"
+-
+-
+-
+-# UNCOMMENT THE THREE LINES BELOW TO USE MS VISUAL STUDIO 2008 ON A 32 BIT VERSION OF WINDOWS
+-
+-# VCINCLUDE = "C:\Program Files\Microsoft Visual Studio 9.0\VC\include"
+-
+-# WINDOWS_H = "C:\Program Files\Microsoft Visual Studio 9.0\SmartDevices\SDK\Smartphone2003\Include"
+-
+-# VCSDK  = "C:\Program Files\Microsoft Visual Studio 9.0\SmartDevices\SDK\Smartphone2003\Include"
+-
+-
+-
+-# UNCOMMENT THE THREE LINES BELOW TO USE MS VISUAL STUDIO 2005 UNDER A 32 BIT VERSION OF WINDOWS
+-
+-# VCINCLUDE = "C:\Program Files\Microsoft Visual Studio 8\VC\include"
+-
+-# VCSDK     = "C:\Program Files\Microsoft Visual Studio 8\VC\PlatformSDK\Include"
+-
+-# WINDOWS_H = "C:\Program Files\Microsoft Visual Studio 8\VC\PlatformSDK\Include"
+-
+-
+-
+-# UNCOMMENT THE THREE LINES BELOW TO USE MS VISUAL STUDIO 2005 UNDER A 64 BIT VERSION OF WINDOWS
+-
+-# VCINCLUDE = "C:\Program Files (x86)\Microsoft Visual Studio 8\VC\include"
+-
+-# VCSDK     = "C:\Program Files (x86)\Microsoft Visual Studio 8\VC\PlatformSDK\Include"
+-
+-# WINDOWS_H = "C:\Program Files (x86)\Microsoft Visual Studio 8\VC\PlatformSDK\Include"
+-
+diff --git PSOPT/examples/Makefile-IPOPT.inc PSOPT/examples/Makefile-IPOPT.inc
+deleted file mode 100755
+index cfd88c1..0000000
+--- PSOPT/examples/Makefile-IPOPT.inc
++++ /dev/null
+@@ -1,53 +0,0 @@
+-CXX = cl
+-
+-CC = cl
+-
+-LD  = link
+-
+-CFLAGS = -DWIN32 -DLAPACK -DSPARSE_MATRIX -DUSE_IPOPT  -D_CRT_ERRNO_DEFINED
+-
+-BASE = ..\..\..
+-
+-DMATRIX  = $(BASE)\dmatrix
+-
+-LUSOL    = $(BASE)\lusol\csrc
+-
+-CXSPARSE = $(BASE)\CXSparse
+-
+-ADOLC    = C:\ADOL-C-2.1.12\ADOL-C\
+-
+-ADOLCLIB = C:\ADOL-C-2.1.12\windows\sparse\adolc.lib
+-
+-IPOPT = C:\Ipopt-3.9.3
+-
+-include ..\..\..\MicrosoftVisualStudio.inc
+-
+-PSOPT = $(BASE)\PSOPT
+-
+-INCLUDE = -I$(PSOPT)\src -I$(DMATRIX)\include  -I$(BASE)\CXSparse\Include -I$(LUSOL) -I$(IPOPT)\include\coin -I$(IPOPT)\Ipopt\src\Interfaces -I$(IPOPT)\Ipopt\src\Common -I$(IPOPT)\BuildTools\headers -I$(IPOPT)\Ipopt\src\LinAlg -I$(ADOLC) -I$(ADOLC)\adolc -I$(ADOLC)\adolc\drivers -I$(ADOLC)\adolc\sparse -I$(VCINCLUDE) -I$(VCSDK)
+-
+-
+-LIBS = $(DMATRIX)\lib\libdmatrix.lib $(PSOPT)\lib\libpsopt.lib $(DMATRIX)\lib\clapack.lib $(DMATRIX)\lib\blas.lib $(DMATRIX)\lib\libf2c.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libIpopt\Release\libIpopt.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libf2c\vcf2c.lib  $(IPOPT)\Ipopt\MSVisualStudio\v8\LibCoinLapack\Release\libCoinLapack.lib  $(IPOPT)\Ipopt\MSVisualStudio\v8\libCoinBlas\Release\libCoinBlas.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libCoinHSL\Release\libCoinHSL.lib $(LUSOL)\liblusol.lib $(CXSPARSE)\Lib\libcxsparse.lib $(ADOLCLIB)
+-
+-
+-SNFW_SRC =
+-
+-SNFW_OBJ =
+-
+-
+-
+-.cxx.obj:
+-	$(CXX) -c $(CFLAGS) $(INCLUDE) %s /Fo$*.obj
+-
+-.c.obj:
+-	$(CC) -c $(CFLAGS) $(INCLUDE) %s /Fo$*.obj
+-
+-
+-clean:
+-	del  *.obj
+-
+-
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile-SNOPT.inc PSOPT/examples/Makefile-SNOPT.inc
+deleted file mode 100755
+index dcddc75..0000000
+--- PSOPT/examples/Makefile-SNOPT.inc
++++ /dev/null
+@@ -1,55 +0,0 @@
+-CXX = cl
+-
+-CC = cl
+-
+-LD  = link
+-
+-CFLAGS = -DWIN32 -DLAPACK -DSPARSE_MATRIX -DUSE_IPOPT  -DUSE_SNOPT -D_CRT_ERRNO_DEFINED
+-
+-BASE = ..\..\..
+-
+-DMATRIX  = $(BASE)\dmatrix
+-
+-LUSOL    = $(BASE)\lusol\csrc
+-
+-CXSPARSE = $(BASE)\CXSparse
+-
+-ADOLC    = C:\ADOL-C-2.1.12\ADOL-C\
+-
+-ADOLCLIB = C:\ADOL-C-2.1.12\windows\sparse\adolc.lib
+-
+-IPOPT = C:\Ipopt-3.9.3
+-
+-SNOPT = C:\snopt7
+-
+-include ..\..\..\MicrosoftVisualStudio.inc
+-
+-PSOPT = $(BASE)\PSOPT
+-
+-INCLUDE = -I$(PSOPT)\src -I$(DMATRIX)\include  -I$(BASE)\CXSparse\Include -I$(LUSOL) -I$(IPOPT)\include\coin -I$(IPOPT)\Ipopt\src\Interfaces -I$(IPOPT)\Ipopt\src\Common -I$(IPOPT)\BuildTools\headers -I$(IPOPT)\Ipopt\src\LinAlg -I$(ADOLC) -I$(ADOLC)\adolc -I$(ADOLC)\adolc\drivers -I$(ADOLC)\adolc\sparse -I$(VCINCLUDE) -I$(VCSDK)
+-
+-
+-LIBS = $(DMATRIX)\lib\libdmatrix.lib $(PSOPT)\lib\libpsopt.lib $(DMATRIX)\lib\clapack.lib $(DMATRIX)\lib\blas.lib $(DMATRIX)\lib\libf2c.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libIpopt\Release\libIpopt.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libf2c\vcf2c.lib  $(IPOPT)\Ipopt\MSVisualStudio\v8\LibCoinLapack\Release\libCoinLapack.lib  $(IPOPT)\Ipopt\MSVisualStudio\v8\libCoinBlas\Release\libCoinBlas.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libCoinHSL\Release\libCoinHSL.lib $(LUSOL)\liblusol.lib $(CXSPARSE)\Lib\libcxsparse.lib $(ADOLCLIB) \
+- $(SNOPT)\win32\snopt.lib $(SNOPT)\win32\vcf2c.lib
+-
+-
+-SNFW_SRC =  $(SNOPT)\cexamples\snfilewrapper.c
+-
+-SNFW_OBJ =  $(SNOPT)\cexamples\snfilewrapper.obj
+-
+-
+-.cxx.obj:
+-	$(CXX) -c $(CFLAGS) $(INCLUDE) %s /Fo$*.obj
+-
+-.c.obj:
+-	$(CC) -c $(CFLAGS) $(INCLUDE) %s /Fo$*.obj
+-
+-
+-clean:
+-	del  *.obj
+-
+-
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile.inc PSOPT/examples/Makefile.inc
+deleted file mode 100755
+index a278414..0000000
+--- PSOPT/examples/Makefile.inc
++++ /dev/null
+@@ -1,55 +0,0 @@
+-CXX = cl
+-
+-CC = cl
+-
+-LD  = link
+-
+-CFLAGS = -DWIN32 -DLAPACK -DSPARSE_MATRIX -DUSE_IPOPT  -D_CRT_ERRNO_DEFINED
+-
+-BASE = ..\..\..
+-
+-DMATRIX  = $(BASE)\dmatrix
+-
+-LUSOL    = $(BASE)\lusol\csrc
+-
+-CXSPARSE = $(BASE)\CXSparse
+-
+-
+-ADOLC    = C:\ADOL-C-2.1.12\ADOL-C\
+-
+-ADOLCLIB = C:\ADOL-C-2.1.12\windows\sparse\adolc.lib
+-
+-IPOPT = C:\Ipopt-3.9.3
+-
+-include ..\..\..\MicrosoftVisualStudio.inc
+-
+-PSOPT = $(BASE)\PSOPT
+-
+-INCLUDE = -I$(PSOPT)\src -I$(DMATRIX)\include  -I$(BASE)\CXSparse\Include -I$(LUSOL) -I$(IPOPT)\include\coin -I$(IPOPT)\Ipopt\src\Interfaces -I$(IPOPT)\Ipopt\src\Common -I$(IPOPT)\BuildTools\headers -I$(IPOPT)\Ipopt\src\LinAlg -I$(ADOLC) -I$(ADOLC)\adolc -I$(ADOLC)\adolc\drivers -I$(ADOLC)\adolc\sparse -I$(VCINCLUDE) -I$(VCSDK)
+-
+-
+-
+-LIBS = $(DMATRIX)\lib\libdmatrix.lib $(PSOPT)\lib\libpsopt.lib $(DMATRIX)\lib\clapack.lib $(DMATRIX)\lib\blas.lib $(DMATRIX)\lib\libf2c.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libIpopt\Release\libIpopt.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libf2c\vcf2c.lib  $(IPOPT)\Ipopt\MSVisualStudio\v8\LibCoinLapack\Release\libCoinLapack.lib  $(IPOPT)\Ipopt\MSVisualStudio\v8\libCoinBlas\Release\libCoinBlas.lib $(IPOPT)\Ipopt\MSVisualStudio\v8\libCoinHSL\Release\libCoinHSL.lib $(LUSOL)\liblusol.lib $(CXSPARSE)\Lib\libcxsparse.lib $(ADOLCLIB)
+-
+-
+-SNFW_SRC =
+-
+-SNFW_OBJ =
+-
+-
+-
+-.cxx.obj:
+-	$(CXX) -c $(CFLAGS) $(INCLUDE) %s /Fo$*.obj
+-
+-.c.obj:
+-	$(CC) -c $(CFLAGS) $(INCLUDE) %s /Fo$*.obj
+-
+-
+-clean:
+-	del  *.obj
+-
+-
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile.ipopt PSOPT/examples/Makefile.ipopt
+deleted file mode 100644
+index a15d565..0000000
+--- PSOPT/examples/Makefile.ipopt
++++ /dev/null
+@@ -1,218 +0,0 @@
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/shs99vmb
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-
+-DMATRIXDIR=../../../dmatrix
+-
+-CXSPARSE=../../../CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.10.3
+-IPOPTINCDIR = ${prefix}/include/coin
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-
+-
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a
+-ADOLC_LIBS    = -ladolc
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.5.4/lib -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(SNOPTDIR)/cppsrc -I$(DMATRIXDIR)/include -I$(SNOPTDIR)/cppexamples -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(LUSOL) -I$(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-FLIBS        =   /usr/lib/libf2c.a -lblas -llapack -lm
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-PSOPT  =
+-BRAC1  = brac1
+-SHUTT  = shuttle_reentry1
+-MOON   = moon
+-STC1   = stc1
+-SING0  = sing0
+-BRYMR  = bryson_max_range
+-TWOLINK= twolinkarm
+-TWOPHSC= twophase_schwartz
+-TWOPHRO= twophase_robot
+-HYPER  = hypersensitive
+-MPHDR  = multiphase_drug
+-PARAM  = param_estim
+-LAUNCH = launch
+-BRYDEN = bryson_denham
+-DELAY1 = delay1
+-GODDARD= goddard
+-SING5  = singular5
+-CLIMB  = climb
+-CRACKING  = cracking
+-ISOP    = isoperimetric
+-CATMIX  = catmix
+-CHAIN   = chain
+-OBSTACLE= obstacle
+-CRANE   = crane
+-IPC     = interior_point
+-ALPINE  = alpine
+-LTS  = lts
+-LOWTHR  = low_thrust
+-COULOMB  = coulomb
+-USER  = user
+-HEAT = heat
+-
+-BRAC1_O = $(BRAC1:%=$(EXAMPLESDIR)/%.o)
+-SHUTT_O = $(SHUTT:%=$(EXAMPLESDIR)/%.o)
+-MOON_O = $(MOON:%=$(EXAMPLESDIR)/%.o)
+-STC1_O = $(STC1:%=$(EXAMPLESDIR)/%.o)
+-SING0_O= $(SING0:%=$(EXAMPLESDIR)/%.o)
+-BRYMR_O= $(BRYMR:%=$(EXAMPLESDIR)/%.o)
+-TWOLINK_O= $(TWOLINK:%=$(EXAMPLESDIR)/%.o)
+-TWOPHSC_O= $(TWOPHSC:%=$(EXAMPLESDIR)/%.o)
+-TWOPHRO_O= $(TWOPHRO:%=$(EXAMPLESDIR)/%.o)
+-HYPER_O= $(HYPER:%=$(EXAMPLESDIR)/%.o)
+-MPHDR_O= $(MPHDR:%=$(EXAMPLESDIR)/%.o)
+-PARAM_O= $(PARAM:%=$(EXAMPLESDIR)/%.o)
+-LAUNCH_O= $(LAUNCH:%=$(EXAMPLESDIR)/%.o)
+-BRYDEN_O= $(BRYDEN:%=$(EXAMPLESDIR)/%.o)
+-DELAY1_O= $(DELAY1:%=$(EXAMPLESDIR)/%.o)
+-GODDARD_O= $(GODDARD:%=$(EXAMPLESDIR)/%.o)
+-SING5_O= $(SING5:%=$(EXAMPLESDIR)/%.o)
+-CLIMB_O= $(CLIMB:%=$(EXAMPLESDIR)/%.o)
+-CRACKING_O= $(CRACKING:%=$(EXAMPLESDIR)/%.o)
+-ISOP_O= $(ISOP:%=$(EXAMPLESDIR)/%.o)
+-CATMIX_O= $(CATMIX:%=$(EXAMPLESDIR)/%.o)
+-CHAIN_O= $(CHAIN:%=$(EXAMPLESDIR)/%.o)
+-OBSTACLE_O= $(OBSTACLE:%=$(EXAMPLESDIR)/%.o)
+-CRANE_O= $(CRANE:%=$(EXAMPLESDIR)/%.o)
+-IPC_O= $(IPC:%=$(EXAMPLESDIR)/%.o)
+-ALPINE_O= $(ALPINE:%=$(EXAMPLESDIR)/%.o)
+-LTS_O= $(LTS:%=$(EXAMPLESDIR)/%.o)
+-LOWTHR_O= $(LOWTHR:%=$(EXAMPLESDIR)/%.o)
+-COULOMB_O= $(COULOMB:%=$(EXAMPLESDIR)/%.o)
+-USER_O= $(USER:%=$(EXAMPLESDIR)/%.o)
+-HEAT_O= $(HEAT:%=$(EXAMPLESDIR)/%.o)
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS)  $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-brac1: $(BRAC1_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@  -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-shutt: $(SHUTT_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-moon: $(MOON_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-stc1:  $(STC1_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-sing0: $(SING0_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-brymr: $(BRYMR_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-twolink: $(TWOLINK_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-twophsc: $(TWOPHSC_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-twophro: $(TWOPHRO_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-hyper: $(HYPER_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-mphdr: $(MPHDR_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-param: $(PARAM_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-launch: $(LAUNCH_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-bryden: $(BRYDEN_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-delay1: $(DELAY1_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-goddard: $(GODDARD_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-sing5:  $(SING5_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-climb:  $(CLIMB_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-cracking:  $(CRACKING_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-isop:  $(ISOP_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-catmix:  $(CATMIX_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-chain:  $(CHAIN_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-obstacle:  $(OBSTACLE_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-crane:  $(CRANE_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-ipc:  $(IPC_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-alpine:  $(ALPINE_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-lts:  $(LTS_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-lowthr:  $(LOWTHR_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-coulomb:  $(COULOMB_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-user:   $(COULOMB_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-HEAT: $(HEAT_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile.snopt PSOPT/examples/Makefile.snopt
+deleted file mode 100644
+index bc1652e..0000000
+--- PSOPT/examples/Makefile.snopt
++++ /dev/null
+@@ -1,218 +0,0 @@
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/shs99vmb
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-SNOPTDIR=$(USERHOME)/snopt7
+-DMATRIXDIR=../../../dmatrix
+-CPPEXAMPLESDIR = $(SNOPTDIR)/cppexamples
+-CXSPARSE=../../../CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.10.3
+-IPOPTINCDIR = ${prefix}/include/coin
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-SNOPT_LIBS    = $(SNOPTDIR)/lib/libsnopt_cpp.a $(SNOPTDIR)/lib/libsnopt_c.a $(SNOPTDIR)/lib/libsnprint_c.a $(SNOPTDIR)/lib/libblas.a
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a
+-ADOLC_LIBS    = -ladolc
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.5.4/lib -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(SNOPTDIR)/cppsrc -I$(DMATRIXDIR)/include -I$(SNOPTDIR)/cppexamples -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_SNOPT -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(LUSOL) -I$(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-PSOPT  =
+-BRAC1  = brac1   ~/snopt7/cexamples/snfilewrapper
+-SHUTT  = shuttle_reentry1   ~/snopt7/cexamples/snfilewrapper
+-MOON   = moon   ~/snopt7/cexamples/snfilewrapper
+-STC1   = stc1   ~/snopt7/cexamples/snfilewrapper
+-SING0  = sing0   ~/snopt7/cexamples/snfilewrapper
+-BRYMR  = bryson_max_range   ~/snopt7/cexamples/snfilewrapper
+-TWOLINK= twolinkarm  ~/snopt7/cexamples/snfilewrapper
+-TWOPHSC= twophase_schwartz   ~/snopt7/cexamples/snfilewrapper
+-TWOPHRO= twophase_robot   ~/snopt7/cexamples/snfilewrapper
+-HYPER  = hypersensitive   ~/snopt7/cexamples/snfilewrapper
+-MPHDR  = multiphase_drug   ~/snopt7/cexamples/snfilewrapper
+-PARAM  = param_estim   ~/snopt7/cexamples/snfilewrapper
+-LAUNCH = launch   ~/snopt7/cexamples/snfilewrapper
+-BRYDEN = bryson_denham   ~/snopt7/cexamples/snfilewrapper
+-DELAY1 = delay1  ~/snopt7/cexamples/snfilewrapper
+-GODDARD= goddard   ~/snopt7/cexamples/snfilewrapper
+-SING5  = singular5  ~/snopt7/cexamples/snfilewrapper
+-CLIMB  = climb   ~/snopt7/cexamples/snfilewrapper
+-CRACKING  = cracking   ~/snopt7/cexamples/snfilewrapper
+-ISOP    = isoperimetric   ~/snopt7/cexamples/snfilewrapper
+-CATMIX  = catmix   ~/snopt7/cexamples/snfilewrapper
+-CHAIN   = chain   ~/snopt7/cexamples/snfilewrapper
+-OBSTACLE= obstacle   ~/snopt7/cexamples/snfilewrapper
+-CRANE   = crane  ~/snopt7/cexamples/snfilewrapper
+-IPC     = interior_point   ~/snopt7/cexamples/snfilewrapper
+-ALPINE  = alpine   ~/snopt7/cexamples/snfilewrapper
+-LTS  = lts   ~/snopt7/cexamples/snfilewrapper
+-LOWTHR  = low_thrust   ~/snopt7/cexamples/snfilewrapper
+-COULOMB  = coulomb   ~/snopt7/cexamples/snfilewrapper
+-USER  = user   ~/snopt7/cexamples/snfilewrapper
+-HEAT =  heat   ~/snopt7/cexamples/snfilewrapper
+-
+-BRAC1_O = $(BRAC1:%=$(EXAMPLESDIR)/%.o)
+-SHUTT_O = $(SHUTT:%=$(EXAMPLESDIR)/%.o)
+-MOON_O = $(MOON:%=$(EXAMPLESDIR)/%.o)
+-STC1_O = $(STC1:%=$(EXAMPLESDIR)/%.o)
+-SING0_O= $(SING0:%=$(EXAMPLESDIR)/%.o)
+-BRYMR_O= $(BRYMR:%=$(EXAMPLESDIR)/%.o)
+-TWOLINK_O= $(TWOLINK:%=$(EXAMPLESDIR)/%.o)
+-TWOPHSC_O= $(TWOPHSC:%=$(EXAMPLESDIR)/%.o)
+-TWOPHRO_O= $(TWOPHRO:%=$(EXAMPLESDIR)/%.o)
+-HYPER_O= $(HYPER:%=$(EXAMPLESDIR)/%.o)
+-MPHDR_O= $(MPHDR:%=$(EXAMPLESDIR)/%.o)
+-PARAM_O= $(PARAM:%=$(EXAMPLESDIR)/%.o)
+-LAUNCH_O= $(LAUNCH:%=$(EXAMPLESDIR)/%.o)
+-BRYDEN_O= $(BRYDEN:%=$(EXAMPLESDIR)/%.o)
+-DELAY1_O= $(DELAY1:%=$(EXAMPLESDIR)/%.o)
+-GODDARD_O= $(GODDARD:%=$(EXAMPLESDIR)/%.o)
+-SING5_O= $(SING5:%=$(EXAMPLESDIR)/%.o)
+-CLIMB_O= $(CLIMB:%=$(EXAMPLESDIR)/%.o)
+-CRACKING_O= $(CRACKING:%=$(EXAMPLESDIR)/%.o)
+-ISOP_O= $(ISOP:%=$(EXAMPLESDIR)/%.o)
+-CATMIX_O= $(CATMIX:%=$(EXAMPLESDIR)/%.o)
+-CHAIN_O= $(CHAIN:%=$(EXAMPLESDIR)/%.o)
+-OBSTACLE_O= $(OBSTACLE:%=$(EXAMPLESDIR)/%.o)
+-CRANE_O= $(CRANE:%=$(EXAMPLESDIR)/%.o)
+-IPC_O= $(IPC:%=$(EXAMPLESDIR)/%.o)
+-ALPINE_O= $(ALPINE:%=$(EXAMPLESDIR)/%.o)
+-LTS_O= $(LTS:%=$(EXAMPLESDIR)/%.o)
+-LOWTHR_O= $(LOWTHR:%=$(EXAMPLESDIR)/%.o)
+-COULOMB_O= $(COULOMB:%=$(EXAMPLESDIR)/%.o)
+-USER_O =   $(USER:%=$(EXAMPLESDIR)/%.o)
+-HEAT_O= $(HEAT:%=$(EXAMPLESDIR)/%.o)
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SNOPT_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-brac1: $(BRAC1_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@  -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-shutt: $(SHUTT_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-moon: $(MOON_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-stc1:  $(STC1_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-sing0: $(SING0_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-brymr: $(BRYMR_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-twolink: $(TWOLINK_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-twophsc: $(TWOPHSC_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-twophro: $(TWOPHRO_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-hyper: $(HYPER_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-mphdr: $(MPHDR_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-param: $(PARAM_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-launch: $(LAUNCH_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-bryden: $(BRYDEN_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-delay1: $(DELAY1_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-goddard: $(GODDARD_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-sing5:  $(SING5_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-climb:  $(CLIMB_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-cracking:  $(CRACKING_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-isop:  $(ISOP_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-catmix:  $(CATMIX_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-chain:  $(CHAIN_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-obstacle:  $(OBSTACLE_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-crane:  $(CRANE_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-ipc:  $(IPC_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-alpine:  $(ALPINE_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-lts:  $(LTS_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-lowthr:  $(LOWTHR_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-coulomb:  $(COULOMB_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-user:  $(USER_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-HEAT: $(HEAT_O) $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SPARSE_LIBS)
+-	$(CXX) $(CXXFLAGS) $^ -o $@ -L$(LIBDIR) $(ALL_LIBRARIES) $(LDFLAGS)
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile_linux.inc PSOPT/examples/Makefile_linux.inc
+deleted file mode 100644
+index 003fef0..0000000
+--- PSOPT/examples/Makefile_linux.inc
++++ /dev/null
+@@ -1,65 +0,0 @@
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/$(shell whoami)
+-
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-
+-DMATRIXDIR=../../../dmatrix
+-
+-CXSPARSE=../../../SuiteSparse/CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.12.3
+-IPOPTINCDIR = -I${prefix}/Ipopt/src/Interfaces -I${prefix}/Ipopt/src/Common -I${prefix}/Ipopt/src/LinAlg
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-# SNOPT_LIBS    = $(SNOPTDIR)/lib/libsnopt_cpp.a $(SNOPTDIR)/lib/libsnopt_c.a $(SNOPTDIR)/lib/libsnprint_c.a $(SNOPTDIR)/lib/libblas.a $(SNOPTDIR)/lib/libf2c.a
+-SNOPT_LIBS    = 
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-# IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a $(IPOPTLIBDIR)/libcoinhsl.a  $(IPOPTLIBDIR)/ThirdParty/libcoinmumps.a $(IPOPTLIBDIR)/ThirdParty/libcoinmetis.a -lpthread -lgfortran -lblas -llapack -latlas -lf77blas
+-IPOPT_LIBS = `PKG_CONFIG_PATH=$(prefix)/lib64/pkgconfig:$(prefix)/lib/pkgconfig:$(prefix)/share/pkgconfig: /usr/bin/pkg-config --libs ipopt`
+-ADOLC_LIBS    = /usr/lib/libadolc.a /usr/lib/libColPack.a
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-# LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.9.3/lib/coin -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.12.3/lib
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(USERHOME)/adolc_base/include -I$(SNOPTDIR)/cppsrc -I$(DMATRIXDIR)/include -I$(SNOPTDIR)/cppexamples -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(CXSPARSE)/../SuiteSparse_config -I$(LUSOL) $(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-# FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-FLIBS        =  -lm -lf2c  -llapack -lf77blas -lcblas
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+diff --git PSOPT/examples/Makefile_linux.inc.bak PSOPT/examples/Makefile_linux.inc.bak
+deleted file mode 100644
+index b3f0fa6..0000000
+--- PSOPT/examples/Makefile_linux.inc.bak
++++ /dev/null
+@@ -1,64 +0,0 @@
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/$(shell whoami)
+-SNOPT_WRAPPER=~/snopt7/cexamples/snfilewrapper
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-SNOPTDIR=$(USERHOME)/snopt7
+-DMATRIXDIR=../../../dmatrix
+-CPPEXAMPLESDIR = $(SNOPTDIR)/cppexamples
+-CXSPARSE=../../../CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.9.3
+-IPOPTINCDIR = ${prefix}/include/coin
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib/coin
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-SNOPT_LIBS    = $(SNOPTDIR)/lib/libsnopt_cpp.a $(SNOPTDIR)/lib/libsnopt_c.a $(SNOPTDIR)/lib/libsnprint_c.a $(SNOPTDIR)/lib/libblas.a $(SNOPTDIR)/lib/libf2c.a
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a $(IPOPTLIBDIR)/ThirdParty/libcoinhsl.a
+-ADOLC_LIBS    = -ladolc
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.8.3/lib -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(SNOPTDIR)/cppsrc -I$(DMATRIXDIR)/include -I$(SNOPTDIR)/cppexamples -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_SNOPT -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(LUSOL) -I$(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-# FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-FLIBS        =  -lm /usr/lib/libf2c.a  -lblas /usr/lib/liblapack.a -llapack 
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SNOPT_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile_linux.inc.tmp PSOPT/examples/Makefile_linux.inc.tmp
+deleted file mode 100644
+index c123c5c..0000000
+--- PSOPT/examples/Makefile_linux.inc.tmp
++++ /dev/null
+@@ -1,70 +0,0 @@
+-
+-
+-
+-
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/$(shell whoami)
+-
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-
+-DMATRIXDIR=../../../dmatrix
+-
+-CXSPARSE=../../../../packages/SuiteSparse/CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.10.3
+-IPOPTINCDIR = -I${prefix}/Ipopt/src/Interfaces -I${prefix}/Ipopt/src/Common -I${prefix}/Ipopt/src/LinAlg
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-
+-SNOPT_LIBS    = 
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-# IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a $(IPOPTLIBDIR)/libcoinhsl.a  $(IPOPTLIBDIR)/ThirdParty/libcoinmumps.a $(IPOPTLIBDIR)/ThirdParty/libcoinmetis.a -lpthread -lgfortran -lblas -llapack -latlas -lf77blas
+-IPOPT_LIBS = `PKG_CONFIG_PATH=$(prefix)/lib64/pkgconfig:$(prefix)/lib/pkgconfig:$(prefix)/share/pkgconfig: /usr/bin/pkg-config --libs ipopt`
+-ADOLC_LIBS    = $(USERHOME)/adolc_base/lib64/libadolc.a $(USERHOME)/Colpack/lib/libColPack.a
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-# LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.9.3/lib/coin -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.10.3/lib
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(USERHOME)/adolc_base/include -I$(DMATRIXDIR)/include -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(LUSOL) $(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-# FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-FLIBS        =  -lm /usr/lib/libf2c.a  -llapack -lf77blas -lcblas
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+-
+diff --git PSOPT/examples/Makefile_linux.inc_IPOPT PSOPT/examples/Makefile_linux.inc_IPOPT
+deleted file mode 100644
+index 003fef0..0000000
+--- PSOPT/examples/Makefile_linux.inc_IPOPT
++++ /dev/null
+@@ -1,65 +0,0 @@
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/$(shell whoami)
+-
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-
+-DMATRIXDIR=../../../dmatrix
+-
+-CXSPARSE=../../../SuiteSparse/CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.12.3
+-IPOPTINCDIR = -I${prefix}/Ipopt/src/Interfaces -I${prefix}/Ipopt/src/Common -I${prefix}/Ipopt/src/LinAlg
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-# SNOPT_LIBS    = $(SNOPTDIR)/lib/libsnopt_cpp.a $(SNOPTDIR)/lib/libsnopt_c.a $(SNOPTDIR)/lib/libsnprint_c.a $(SNOPTDIR)/lib/libblas.a $(SNOPTDIR)/lib/libf2c.a
+-SNOPT_LIBS    = 
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-# IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a $(IPOPTLIBDIR)/libcoinhsl.a  $(IPOPTLIBDIR)/ThirdParty/libcoinmumps.a $(IPOPTLIBDIR)/ThirdParty/libcoinmetis.a -lpthread -lgfortran -lblas -llapack -latlas -lf77blas
+-IPOPT_LIBS = `PKG_CONFIG_PATH=$(prefix)/lib64/pkgconfig:$(prefix)/lib/pkgconfig:$(prefix)/share/pkgconfig: /usr/bin/pkg-config --libs ipopt`
+-ADOLC_LIBS    = /usr/lib/libadolc.a /usr/lib/libColPack.a
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-# LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.9.3/lib/coin -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.12.3/lib
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(USERHOME)/adolc_base/include -I$(SNOPTDIR)/cppsrc -I$(DMATRIXDIR)/include -I$(SNOPTDIR)/cppexamples -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(CXSPARSE)/../SuiteSparse_config -I$(LUSOL) $(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-# FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-FLIBS        =  -lm -lf2c  -llapack -lf77blas -lcblas
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+diff --git PSOPT/examples/Makefile_linux.inc_SNOPT PSOPT/examples/Makefile_linux.inc_SNOPT
+deleted file mode 100644
+index 95f8176..0000000
+--- PSOPT/examples/Makefile_linux.inc_SNOPT
++++ /dev/null
+@@ -1,67 +0,0 @@
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/$(shell whoami)
+-
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-
+-DMATRIXDIR=../../../dmatrix
+-
+-CXSPARSE=../../../SuiteSparse/CXSparse
+-LUSOL=../../../lusol/csrc
+-SNOPTDIR=$(USERHOME)/snopt7
+-SNOPTINTERFACEDIR=../../../snopt-interface
+-SNOPT_LIBS    = $(SNOPTINTERFACEDIR)/lib/libsnopt7_cpp.a $(SNOPTDIR)/lib/libsnopt7.a #$(SNOPTDIR)/lib/libblas.a
+-
+-
+-prefix = $(USERHOME)/Ipopt-3.12.3
+-IPOPTINCDIR = -I${prefix}/Ipopt/src/Interfaces -I${prefix}/Ipopt/src/Common -I${prefix}/Ipopt/src/LinAlg
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-# IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a $(IPOPTLIBDIR)/libcoinhsl.a  $(IPOPTLIBDIR)/ThirdParty/libcoinmumps.a $(IPOPTLIBDIR)/ThirdParty/libcoinmetis.a -lpthread -lgfortran -lblas -llapack -latlas -lf77blas
+-IPOPT_LIBS = `PKG_CONFIG_PATH=$(prefix)/lib64/pkgconfig:$(prefix)/lib/pkgconfig:$(prefix)/share/pkgconfig: /usr/bin/pkg-config --libs ipopt`
+-ADOLC_LIBS    = /usr/lib/libadolc.a /usr/lib/libColPack.a
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-# LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.9.3/lib/coin -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.12.3/lib
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(USERHOME)/adolc_base/include -I$(DMATRIXDIR)/include -I$(SNOPTINTERFACEDIR)/include -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_SNOPT -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(CXSPARSE)/../SuiteSparse_config -I$(LUSOL) $(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-# FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-FLIBS        =  -lm /usr/lib/libf2c.a  -llapack -lf77blas -lcblas
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(SNOPT_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+diff --git PSOPT/examples/Makefile_linux_IPOPT PSOPT/examples/Makefile_linux_IPOPT
+deleted file mode 100644
+index c123c5c..0000000
+--- PSOPT/examples/Makefile_linux_IPOPT
++++ /dev/null
+@@ -1,70 +0,0 @@
+-
+-
+-
+-
+-#Usage:  make
+-
+-SHELL         = /bin/sh
+-USERHOME      = /home/$(shell whoami)
+-
+-F2CINC = $(F2CINCLUDE)
+-F2CLIB = $(F2CLIBRARY)
+-
+-DMATRIXDIR=../../../dmatrix
+-
+-CXSPARSE=../../../../packages/SuiteSparse/CXSparse
+-LUSOL=../../../lusol/csrc
+-
+-prefix = $(USERHOME)/Ipopt-3.10.3
+-IPOPTINCDIR = -I${prefix}/Ipopt/src/Interfaces -I${prefix}/Ipopt/src/Common -I${prefix}/Ipopt/src/LinAlg
+-# Directory with libipopt.a
+-IPOPTLIBDIR = ${exec_prefix}/lib
+-exec_prefix = ${prefix}
+-
+-PSOPTDIR    = ../..
+-
+-PSOPTSRCDIR = ../../src
+-EXAMPLESDIR = .
+-LIBDIR        = $(SNOPTDIR)/lib
+-
+-SNOPT_LIBS    = 
+-SPARSE_LIBS   = $(LUSOL)/liblusol.a  $(CXSPARSE)/Lib/libcxsparse.a -ldl
+-# IPOPT_LIBS    =  $(IPOPTLIBDIR)/libipopt.a $(IPOPTLIBDIR)/libcoinhsl.a  $(IPOPTLIBDIR)/ThirdParty/libcoinmumps.a $(IPOPTLIBDIR)/ThirdParty/libcoinmetis.a -lpthread -lgfortran -lblas -llapack -latlas -lf77blas
+-IPOPT_LIBS = `PKG_CONFIG_PATH=$(prefix)/lib64/pkgconfig:$(prefix)/lib/pkgconfig:$(prefix)/share/pkgconfig: /usr/bin/pkg-config --libs ipopt`
+-ADOLC_LIBS    = $(USERHOME)/adolc_base/lib64/libadolc.a $(USERHOME)/Colpack/lib/libColPack.a
+-PSOPT_LIBS    = $(PSOPTDIR)/lib/libpsopt.a
+-DMATRIX_LIBS  = $(DMATRIXDIR)/lib/libdmatrix.a
+-
+-# LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.9.3/lib/coin -L$(IPOPTLIBDIR)  -lm  -ldl    -lgcc_s
+-LDFLAGS	      = -Wl,--rpath -Wl,$(USERHOME)/Ipopt-3.10.3/lib
+-
+-CXX           = /usr/bin/g++
+-CC            = /usr/bin/gcc
+-CXXFLAGS      = -O0 -g -I$(USERHOME)/adolc_base/include -I$(DMATRIXDIR)/include -I$(PSOPTSRCDIR) -DLAPACK -DUNIX -DSPARSE_MATRIX -DUSE_IPOPT -I$(CXSPARSE)/Include -I$(LUSOL) $(IPOPTINCDIR) -fomit-frame-pointer -pipe -DNDEBUG -pedantic-errors -Wimplicit -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -fPIC -DHAVE_MALLOC
+-
+-CFLAGS        = -O0 -fPIC
+-
+-# The C++ interface calls some fortran object files, so it is necessary to
+-# add the Fortran libraries
+-#
+-# WARNING: The g95 libraries used here are machine dependent
+-#
+-# libg2c and libm are added to satisfy  f2c references
+-
+-# FLIBS        =   /usr/lib/libf2c.a  -lblas -llapack -lm
+-FLIBS        =  -lm /usr/lib/libf2c.a  -llapack -lf77blas -lcblas
+-#FLIBS = ../dmatrix/lib/lapack_LINUX.a ../dmatrix/lib/blas_LINUX.a ../dmatrix/lib/F2CLIBS/libf2c_LINUX.a   -lm
+-
+-ALL_LIBRARIES = $(PSOPT_LIBS) $(DMATRIX_LIBS) $(FLIBS) $(SPARSE_LIBS) $(IPOPT_LIBS)  $(ADOLC_LIBS)
+-
+-
+-
+-clean:
+-	rm -f *.o
+-
+-$(EXAMPLESDIR)/%.o : $(EXAMPLESDIR)/%.cxx
+-	$(CXX) -c $(CXXFLAGS) $< -o $@
+-
+-
+-
+-
+diff --git install-ubuntu-16.04.sh install-ubuntu-16.04.sh
+deleted file mode 100644
+index fb30199..0000000
+--- install-ubuntu-16.04.sh
++++ /dev/null
+@@ -1,73 +0,0 @@
+-# Script for Ubuntu 14.04
+-# Install miscellaneous libraries
+-sudo apt-get -y install g++ gfortran f2c libf2c2-dev libf2c2 libblas-dev libopenblas-base libopenblas-dev libblas3 libatlas-base-dev liblapack-dev liblapack3
+-# Download and install Ipopt, Metis and Mumps
+-cd $HOME/Downloads
+-wget --continue http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.3.tgz
+-cd $HOME
+-tar xzvf ./Downloads/Ipopt-3.12.3.tgz
+-cd $HOME/Ipopt-3.12.3/ThirdParty/Metis
+-./get.Metis
+-cd $HOME/Ipopt-3.12.3/ThirdParty/Mumps
+-./get.Mumps
+-cd $HOME/Ipopt-3.12.3
+-./configure --enable-static coin_skip_warn_cxxflags=yes
+-make -j
+-make install
+-# Download and install ADOLC and ColPack
+-cd $HOME/Downloads
+-wget --continue www.coin-or.org/download/source/ADOL-C/ADOL-C-2.5.2.tgz
+-cd $HOME
+-tar zxvf ./Downloads/ADOL-C-2.5.2.tgz
+-cd $HOME/ADOL-C-2.5.2
+-mkdir ./ThirdParty
+-cd ./ThirdParty
+-wget --continue http://cscapes.cs.purdue.edu/download/ColPack/ColPack-1.0.9.tar.gz
+-tar zxvf ColPack-1.0.9.tar.gz
+-mv ColPack-1.0.9 ColPack
+-cd ColPack
+-./configure
+-make
+-sudo make install
+-sudo cp /usr/local/lib/libCol* /usr/lib
+-cd $HOME/ADOL-C-2.5.2
+-./configure --enable-sparse --with-colpack=$HOME/ADOL-C-2.5.2/ThirdParty/ColPack
+-make
+-make install
+-sudo cp $HOME/adolc_base/lib64/*.a /usr/lib
+-sudo cp -r $HOME/adolc_base/include/* /usr/include/
+-# Download and install PDFlib
+-cd $HOME/Downloads
+-wget --continue http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-7.0.5p3.tar.gz
+-tar zxvf PDFlib-Lite-7.0.5p3.tar.gz
+-cd PDFlib-Lite-7.0.5p3 
+-./configure
+-make; sudo make install
+-sudo ldconfig
+-# Download and install GNUplot
+-cd $HOME/Downloads
+-wget --continue http://sourceforge.net/projects/gnuplot/files/gnuplot/4.2.2/gnuplot-4.2.2.tar.gz/download
+-mv download gnuplot-4.2.2.tar.gz
+-tar zxvf gnuplot-4.2.2.tar.gz
+-sudo apt-get -y install libx11-dev libxt-dev libgd2-xpm-dev libreadline6-dev
+-cd gnuplot-4.2.2
+-./configure -with-readline=gnu -without-tutorial
+-make;sudo make install
+-# Download and extract PSOPT
+-cd $HOME
+-wget --continue https://github.com/PSOPT/psopt/archive/master.zip
+-unzip master.zip
+-mv master.zip $HOME/Downloads
+-cd $HOME/psopt-master
+-# Download and extract SuiteSparse
+-wget --continue http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-4.4.3.tar.gz
+-tar zxvf SuiteSparse-4.4.3.tar.gz
+-cd $HOME/psopt-master
+-# Download and extract LUSOL
+-wget --continue http://www.stanford.edu/group/SOL/software/lusol/lusol.zip
+-unzip lusol.zip
+-cd $HOME/psopt-master
+-# Compile SuiteSparse, LUSOL, dmatrix and PSOPT
+-make all
+-echo 'PSOPT installation script completed'
+-echo 'PSOPT installed in $HOME\psopt-master'
+diff --git install-ubuntu-snopt.sh install-ubuntu-snopt.sh
+deleted file mode 100644
+index 5cf9954..0000000
+--- install-ubuntu-snopt.sh
++++ /dev/null
+@@ -1,8 +0,0 @@
+-sudo apt-get install autoconf libtool
+-cd snopt-interface
+-sh autogen.sh
+-./configure
+-make
+-make install
+-cd ..
+-sh use_ipopt_and_snopt.sh
+diff --git install-ubuntu.sh install-ubuntu.sh
+deleted file mode 100644
+index 90adb40..0000000
+--- install-ubuntu.sh
++++ /dev/null
+@@ -1,73 +0,0 @@
+-# Script for Ubuntu 14.04
+-# Install miscellaneous libraries
+-sudo apt-get -y install g++ gfortran f2c libf2c2-dev libf2c2 libblas-dev libopenblas-base libopenblas-dev libblas3gf libatlas-base-dev liblapack-dev liblapack3gf
+-# Download and install Ipopt, Metis and Mumps
+-cd $HOME/Downloads
+-wget --continue http://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.3.tgz
+-cd $HOME
+-tar xzvf ./Downloads/Ipopt-3.12.3.tgz
+-cd $HOME/Ipopt-3.12.3/ThirdParty/Metis
+-./get.Metis
+-cd $HOME/Ipopt-3.12.3/ThirdParty/Mumps
+-./get.Mumps
+-cd $HOME/Ipopt-3.12.3
+-./configure --enable-static coin_skip_warn_cxxflags=yes
+-make -j
+-make install
+-# Download and install ADOLC and ColPack
+-cd $HOME/Downloads
+-wget --continue www.coin-or.org/download/source/ADOL-C/ADOL-C-2.5.2.tgz
+-cd $HOME
+-tar zxvf ./Downloads/ADOL-C-2.5.2.tgz
+-cd $HOME/ADOL-C-2.5.2
+-mkdir ./ThirdParty
+-cd ./ThirdParty
+-wget --continue http://cscapes.cs.purdue.edu/download/ColPack/ColPack-1.0.9.tar.gz
+-tar zxvf ColPack-1.0.9.tar.gz
+-mv ColPack-1.0.9 ColPack
+-cd ColPack
+-./configure
+-make
+-sudo make install
+-sudo cp /usr/local/lib/libCol* /usr/lib
+-cd $HOME/ADOL-C-2.5.2
+-./configure --enable-sparse --with-colpack=$HOME/ADOL-C-2.5.2/ThirdParty/ColPack
+-make
+-make install
+-sudo cp $HOME/adolc_base/lib64/*.a /usr/lib
+-sudo cp -r $HOME/adolc_base/include/* /usr/include/
+-# Download and install PDFlib
+-cd $HOME/Downloads
+-wget --continue http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-7.0.5p3.tar.gz
+-tar zxvf PDFlib-Lite-7.0.5p3.tar.gz
+-cd PDFlib-Lite-7.0.5p3 
+-./configure
+-make; sudo make install
+-sudo ldconfig
+-# Download and install GNUplot
+-cd $HOME/Downloads
+-wget --continue http://sourceforge.net/projects/gnuplot/files/gnuplot/4.2.2/gnuplot-4.2.2.tar.gz/download
+-mv download gnuplot-4.2.2.tar.gz
+-tar zxvf gnuplot-4.2.2.tar.gz
+-sudo apt-get -y install libx11-dev libxt-dev libgd2-xpm-dev libreadline6-dev
+-cd gnuplot-4.2.2
+-./configure -with-readline=gnu -without-tutorial
+-make;sudo make install
+-# Download and extract PSOPT
+-cd $HOME
+-wget --continue https://github.com/PSOPT/psopt/archive/master.zip
+-unzip master.zip
+-mv master.zip $HOME/Downloads
+-cd $HOME/psopt-master
+-# Download and extract SuiteSparse
+-wget --continue http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-4.4.3.tar.gz
+-tar zxvf SuiteSparse-4.4.3.tar.gz
+-cd $HOME/psopt-master
+-# Download and extract LUSOL
+-wget --continue http://www.stanford.edu/group/SOL/software/lusol/lusol.zip
+-unzip lusol.zip
+-cd $HOME/psopt-master
+-# Compile SuiteSparse, LUSOL, dmatrix and PSOPT
+-make all
+-echo 'PSOPT installation script completed'
+-echo 'PSOPT installed in $HOME\psopt-master'
+diff --git update_myblas_h.vbs update_myblas_h.vbs
+deleted file mode 100644
+index 8fe6579..0000000
+--- update_myblas_h.vbs
++++ /dev/null
+@@ -1,24 +0,0 @@
+-Const ForReading = 1
+-Const ForWriting = 2
+-
+-Set objFSO = CreateObject("Scripting.FileSystemObject")
+-Set objTextFile = objFSO.OpenTextFile(".\lusol\csrc\myblas.h", ForReading)
+-
+-Do Until objTextFile.AtEndOfStream
+-    strNextLine = objTextFile.Readline
+-
+-    intLineFinder = InStr(strNextLine, "windows.h")
+-    If intLineFinder <> 0 Then
+-        strNextLine = "// #include <windows.h>"
+-    End If
+-
+-    strNewFile = strNewFile & strNextLine & vbCrLf
+-Loop
+-
+-objTextFile.Close
+-
+-Set objTextFile = objFSO.OpenTextFile(".\lusol\csrc\myblas.h", ForWriting)
+-
+-objTextFile.WriteLine strNewFile
+-objTextFile.Close
+-
+diff --git use_ipopt_and_snopt.bat use_ipopt_and_snopt.bat
+deleted file mode 100644
+index 77e11f4..0000000
+--- use_ipopt_and_snopt.bat
++++ /dev/null
+@@ -1,5 +0,0 @@
+-cd PSOPT\lib
+-copy Makefile-SNOPT.vc Makefile.vc
+-cd ..\examples
+-copy Makefile-SNOPT.inc Makefile.inc
+-cd ..\..
+diff --git use_ipopt_and_snopt.sh use_ipopt_and_snopt.sh
+deleted file mode 100644
+index c9ebe96..0000000
+--- use_ipopt_and_snopt.sh
++++ /dev/null
+@@ -1,6 +0,0 @@
+-cp Makefile.snopt Makefile
+-cd ./PSOPT/lib
+-cp Makefile.snopt Makefile
+-cd ../examples
+-cp Makefile_linux.inc_SNOPT Makefile_linux.inc
+-cd ../..
+diff --git use_ipopt_only.bat use_ipopt_only.bat
+deleted file mode 100644
+index 77e11f4..0000000
+--- use_ipopt_only.bat
++++ /dev/null
+@@ -1,5 +0,0 @@
+-cd PSOPT\lib
+-copy Makefile-SNOPT.vc Makefile.vc
+-cd ..\examples
+-copy Makefile-SNOPT.inc Makefile.inc
+-cd ..\..
+diff --git use_ipopt_only.sh use_ipopt_only.sh
+deleted file mode 100644
+index 114bc99..0000000
+--- use_ipopt_only.sh
++++ /dev/null
+@@ -1,6 +0,0 @@
+-cp Makefile.ipopt Makefile
+-cd ./PSOPT/lib
+-cp Makefile.ipopt Makefile
+-cd ../examples
+-cp Makefile_linux.inc_IPOPT Makefile_linux.inc
+-cd ../..
