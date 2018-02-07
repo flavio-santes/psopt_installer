@@ -195,6 +195,14 @@ install_psopt()
 	patch -p0 < $root_dir/patches/PSOPT_src_plot.diff
 	patch -p0 < $root_dir/patches/PSOPT_Makefile.diff
 
+	export GIT_AUTHOR_NAME="PSOPT Installer"
+	export GIT_AUTHOR_EMAIL="psopt"
+	export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+	export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+	git add .
+	git commit -m "installer: save local changes"
+
 	make all
 }
 
