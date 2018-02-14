@@ -1,5 +1,5 @@
 diff --git Makefile Makefile
-index 2d73aab..8651b4c 100644
+index 2d73aab..0ab9b9c 100644
 --- Makefile
 +++ Makefile
 @@ -19,19 +19,18 @@
@@ -30,7 +30,17 @@ index 2d73aab..8651b4c 100644
  
  # PSOPT stuff
  export PSOPT_DIR = $(PSOPT_ROOT)/PSOPT
-@@ -116,17 +115,10 @@ lib: $(DMATRIX_LIB)
+@@ -59,9 +58,7 @@ PSOPT_DEPS_LIBS =	\
+ 
+ SYS_LIBS =		\
+ 	-llapack	\
+-	-lf77blas	\
+ 	-lcblas		\
+-	-lf2c		\
+ 	-ldl		\
+ 	-lm
+ 
+@@ -116,17 +113,10 @@ lib: $(DMATRIX_LIB)
  examples: lib
  	cd $(EXAMPLES_DIR) && $(MAKE)
  
@@ -50,7 +60,7 @@ index 2d73aab..8651b4c 100644
  	cd $(DMATRIX_DIR)/lib && $(MAKE)
  
  dmatrix_examples: $(DMATRIX_LIB)
-@@ -138,10 +130,6 @@ clean:
+@@ -138,10 +128,6 @@ clean:
  	cd $(PSOPT_DIR)/lib && $(MAKE) clean
  	cd $(EXAMPLES_DIR) && $(MAKE) clean
  

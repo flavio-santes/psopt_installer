@@ -35,32 +35,51 @@ root_dir=$PWD
 
 debian_pkgs()
 {
-	sudo apt-get install -y						\
-		gcc make patch wget git	gnuplot				\
-		g++ gfortran f2c libf2c2-dev libf2c2 libblas-dev	\
-		libopenblas-base libopenblas-dev libblas3		\
-		libatlas-base-dev liblapack-dev liblapack3
+	sudo apt-get install -y			\
+		gcc g++ gfortran		\
+		make patch			\
+		libf2c2-dev 			\
+		libatlas-base-dev		\
+		liblapack3 liblapack-dev	\
+		gnuplot wget git unzip
+}
+
+redhat_pkgs()
+{
+	sudo yum install -y			\
+		gcc gcc-c++ gcc-gfortran	\
+		make patch			\
+		f2c		 		\
+		atlas atlas-devel		\
+		lapack lapack-devel		\
+		gnuplot wget git unzip
 }
 
 configure_os()
 {
 	case $(uname) in
 	Linux)
-		download_cmd="wget -O"
-		os_name=$(head -n1 /etc/issue | cut -d " " -f 1)
+		if [ -e "/etc/debian_version" ]
+		then
+			os_name="Debian"
+			debian_pkgs
+		elif [ -e "/etc/redhat-release" ] || [ -e "/etc/fedora-release" ]
+		then
+			os_name="CentOS"
+			redhat_pkgs
 
-		case "$os_name" in
-		Debian)
-			debian_pkgs
-			;;
-		Ubuntu)
-			debian_pkgs
-			;;
-		*)
+			# CentOS hack for cblas and atlas
+			cd /usr/lib64
+			if [ ! -e "libcblas.so" ]
+			then
+				sudo ln -s atlas/libsatlas.so libcblas.so
+			fi
+		else
 			echo "Unsupported OS :("
 			exit 1
-			;;
-		esac
+		fi
+
+		download_cmd="wget -O"
 		;;
 	*)
 		echo "Unsupported OS :("
