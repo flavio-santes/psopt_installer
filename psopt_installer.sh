@@ -39,8 +39,7 @@ debian_pkgs()
 		gcc make patch wget git	gnuplot				\
 		g++ gfortran f2c libf2c2-dev libf2c2 libblas-dev	\
 		libopenblas-base libopenblas-dev libblas3		\
-		libatlas-base-dev liblapack-dev liblapack3		\
-		libx11-dev libxt-dev libgd2-xpm-dev libreadline6-dev
+		libatlas-base-dev liblapack-dev liblapack3
 }
 
 configure_os()
