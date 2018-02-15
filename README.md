@@ -16,11 +16,17 @@ However, this installer uses a modified version
 
 ## Requirements
 
-### Supported Operating Systems
-- Debian: tested on Debian 9.3
-- Ubuntu: tested on Ubuntu 16 LTS
+### Supported Operating Systems (amd64)
+
+- Debian: tested on Debian 8.10 and 9.3
 - CentOS / RedHat Enterprise Linux (REL): tested on CentOS 7
+- Ubuntu: tested on Ubuntu 16 LTS
 - Fedora: tested on Fedora 27
+
+#### Note
+
+Debian 8.10, Debian 9.3 and CentOS 7 are recommended, because these
+GNU/Linux distributions outperform other distros in our tests.
 
 ### Extra requirements
 - Access to sudo. In Ubuntu, sudo is already configured.
