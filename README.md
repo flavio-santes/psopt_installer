@@ -16,11 +16,16 @@ However, this installer uses a modified version
 
 ## Requirements
 
-- Debian or Ubuntu.
-  Tested on Debian 9.3 and Ubuntu 16 LTS.
+### Supported Operating Systems
+- Debian: tested on Debian 9.3
+- Ubuntu: tested on Ubuntu 16 LTS
+- CentOS / RedHat Enterprise Linux (REL): tested on CentOS 7
+- Fedora: tested on Fedora 27
+
+### Extra requirements
 - Access to sudo. In Ubuntu, sudo is already configured.
-  In Debian, sudo must be enabled/configured, see:
-  https://wiki.debian.org/sudo
+  However, in Debian, CentOS, REL and Fedora, `sudo` must be
+  configured by the sys admin.
 - Access to Internet during installation to download dependencies.
 
 ## Build
@@ -76,7 +81,7 @@ I can't. METIS 4.0.3 package forbids this. However, newer METIS versions
 are licensed under the Apache License v2.0, so perhaps if PSOPT is updated
 we can produce binary packages.
 
-#### What is the difference between the PSOPT Installer and the install scripts found at the psopt-master.zip file?
+#### What is the difference between this project and the install scripts found at the psopt-master.zip file?
 
 The `psopt_installer.sh` script installs all the dependencies in
 a portable way. If you want to hack the installer do the following:
@@ -126,13 +131,19 @@ sudo rm /usr/lib/x86_64-linux-gnu/libf2c.so.2
 ##### Ubuntu 17
 
 There are some bugs in PSOPT and/or its dependencies that prevent that
-in some cases, psopt routines demanding a lot of memory are unable
+in some cases, PSOPT routines demanding a lot of memory are unable
 to reach an optimal solution.
 
-The only known workaround, besides finding and fixing the bug, is:
-
-Use GCC-6: gcc-6, g++-6, gfortran-6 and libgfortran-3 instead of the
-default compiler version (currently GCC-7).
+Workarounds:
+- Increase the iteration number in the example (easiest)
+- Change the BLAS library: modify Makefile, change this line:
+```
+	-lcblas
+```
+  Use another BLAS library and recompile.
+- Find and fix the bug (complicated)
+- Or use GCC-6: gcc-6, g++-6, gfortran-6 and libgfortran-3 instead of
+the default compiler version (currently GCC-7). (a bit more complicated...)
 
 The `psopt_installer.sh` script must be modified to allow the usage of
 GCC-6 and the following variables must be exported:
@@ -143,4 +154,8 @@ export CXX=g++-6
 export FC=gfortran-6
 export F77=gfortran-6
 ```
+
+### On Fedora 27, some examples do not converge, what should I do?
+
+See the Ubuntu 17 Workarounds.
 
