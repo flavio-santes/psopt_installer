@@ -116,18 +116,6 @@ Replace `coulomb` with the name of sample application you want to run.
 
 #### Does the installer work on other GNU/Linux distributions?
 
-##### Debian 8
-
-In Debian 8, the symbolic links to the libf2c shared objects must be
-removed, after installing the libf2c package and before linking the
-PSOPT sample applications. Thus, forcing the linker to use the static
-version:
-
-```
-sudo rm /usr/lib/x86_64-linux-gnu/libf2c.so
-sudo rm /usr/lib/x86_64-linux-gnu/libf2c.so.2
-```
-
 ##### Ubuntu 17
 
 There are some bugs in PSOPT and/or its dependencies that prevent that
