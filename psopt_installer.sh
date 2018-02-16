@@ -221,6 +221,7 @@ install_psopt()
 	patch -p0 < $root_dir/patches/PSOPT_delete_unused_files.diff
 	patch -p0 < $root_dir/patches/PSOPT_src_plot.diff
 	patch -p0 < $root_dir/patches/PSOPT_Makefile.diff
+	patch -p0 < $root_dir/patches/PSOPT_Makefile_newlibs.diff
 
 	export GIT_AUTHOR_NAME="PSOPT Installer"
 	export GIT_AUTHOR_EMAIL="psopt"
@@ -249,7 +250,7 @@ clean)
 	install_adol_c
 	install_lusol
 	install_cxsparse
-#	install_psopt
+	install_psopt
 	;;
 esac
 
