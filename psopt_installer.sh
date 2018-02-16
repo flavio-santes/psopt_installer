@@ -21,8 +21,6 @@
 psopt_dir="$HOME/psopt_bundle"
 psopt_vars="set_variables.sh"
 
-metis_url="http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/OLD/metis-4.0.3.tar.gz"
-
 psopt_src="psopt"
 psopt_url="https://github.com/flavio-santes/psopt.git"
 
@@ -39,9 +37,9 @@ debian_pkgs()
 		gcc g++ gfortran		\
 		make patch			\
 		libf2c2-dev 			\
-		libatlas-base-dev		\
-		liblapack3 liblapack-dev	\
-		gnuplot wget git unzip
+		libopenblas-dev			\
+		liblapack-dev			\
+		gnuplot wget git unzip cmake
 }
 
 redhat_pkgs()
@@ -52,7 +50,7 @@ redhat_pkgs()
 		f2c		 		\
 		atlas atlas-devel		\
 		lapack lapack-devel		\
-		gnuplot wget git unzip
+		gnuplot wget git unzip cmake
 }
 
 configure_os()
@@ -95,17 +93,6 @@ configure_os()
 	source $psopt_vars
 }
 
-download_metis()
-{
-
-	cd "$root_dir/"
-
-	if [ ! -e "packages/metis-4.0.3.tar.gz" ]
-	then
-		$download_cmd packages/metis-4.0.3.tar.gz $metis_url
-	fi
-}
-
 clean_all()
 {
 	cd "$root_dir/"
@@ -116,25 +103,39 @@ clean_all()
 	mkdir -p "$psopt_dir"
 }
 
+install_metis()
+{
+	cd $root_dir/tmp
+	tar zxf $root_dir/packages/metis-5.1.0.tar.gz
+
+	cd $root_dir/tmp/metis-5.1.0
+	patch -p0 < $root_dir/patches/METIS_type_size.diff
+
+	make config shared=1 prefix=$binary_dir
+	make
+	make install
+}
+
+install_mumps()
+{
+        cd $root_dir/tmp
+        tar zxf $root_dir/packages/MUMPS_5.1.2.tar.gz
+
+	cd MUMPS_5.1.2
+	patch -p0 < $root_dir/patches/MUMPS_Makefiles.diff
+
+	make
+	cp -R include $binary_dir/include/mumps
+	cp libseq/*.h $binary_dir/include/mumps
+	cp lib/libdmumps.so $binary_dir/lib
+	cp lib/libmumps_common.so $binary_dir/lib
+	cp libseq/libmpiseq.so $binary_dir/lib
+}
+
 install_ipopt()
 {
 	cd $root_dir/tmp
 	tar zxf $root_dir/packages/Ipopt-3.12.3.tgz
-
-	cd $root_dir/tmp/Ipopt-3.12.3/ThirdParty/Metis
-	if [ ! -e "metis-4.0" ]
-	then
-		tar zxf $root_dir/packages/metis-4.0.3.tar.gz
-		mv metis-4.0.3 metis-4.0
-	fi
-
-	cd $root_dir/tmp/Ipopt-3.12.3/ThirdParty/Mumps
-	if [ ! -e "$mumps" ]
-	then
-		tar zxf $root_dir/packages/MUMPS_4.10.0.tar.gz
-		mv MUMPS_4.10.0 MUMPS
-		patch -p0 < mumps.patch
-	fi
 
 	cd $root_dir/tmp/Ipopt-3.12.3
 	$configure_cmd				\
@@ -232,8 +233,9 @@ clean)
 	;;
 *)
 	clean_all
-#	configure_os
-#	download_metis
+	configure_os
+	install_metis
+	install_mumps
 #	install_ipopt
 #	install_colpack
 #	install_adol_c

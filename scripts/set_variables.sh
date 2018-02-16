@@ -23,10 +23,12 @@ export PSOPT_ROOT_DIR="$PWD/psopt"
 export PATH="$BINARY/bin:$PATH"
 export LD_LIBRARY_PATH="$BINARY/lib:$BINARY/lib64:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="$LD_LIBRARY_PATH:$LIBRARY_PATH"
-CXXFLAGS="-I$BINARY/include "
-CXXFLAGS+="-I$BINARY/include/lusol $CXXFLAGS"
-CXXFLAGS+="-I$BINARY/include/cxsparse $CXXFLAGS"
-export CXXFLAGS+="-I$BINARY/include/coin $CXXFLAGS"
-export LDFLAGS="-L$BINARY/lib -L$BINARY/lib64"
 
+export CFLAGS="-I$BINARY/include  -I$BINARY/include/mumps "
+
+CXXFLAGS="$CFLAGS"
+CXXFLAGS+=" -I$BINARY/include/lusol $CXXFLAGS"
+CXXFLAGS+=" -I$BINARY/include/cxsparse $CXXFLAGS"
+export CXXFLAGS+=" -I$BINARY/include/coin $CXXFLAGS"
+export LDFLAGS=" -L$BINARY/lib -L$BINARY/lib64"
 

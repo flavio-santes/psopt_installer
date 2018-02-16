@@ -1,0 +1,109 @@
+diff --git Makefile.inc Makefile.inc
+index e69de29..db7ee1f 100644
+--- Makefile.inc
++++ Makefile.inc
+@@ -0,0 +1,70 @@
++#
++#  This file is part of MUMPS 5.1.2, released
++#  on Mon Oct  2 07:37:01 UTC 2017
++#
++# These settings for a PC under Debian/linux with standard packages :
++# metis (parmetis), scotch (ptscotch), openmpi, gfortran
++
++# packages installation :
++# apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev lapack-dev
++
++# Begin orderings
++LSCOTCHDIR =
++ISCOTCH   =
++
++#LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr
++LSCOTCH   =
++
++LPORDDIR =
++IPORD    =
++LPORD    =
++
++LMETISDIR =
++IMETIS    =
++LMETIS    = -lmetis
++
++# Corresponding variables reused later
++#ORDERINGSF = -Dmetis -Dpord -Dparmetis -Dscotch -Dptscotch
++ORDERINGSF = -Dmetis
++ORDERINGSC  = $(ORDERINGSF)
++
++LORDERINGS = $(LMETIS) $(LPORD) $(LSCOTCH)
++IORDERINGSF = $(ISCOTCH)
++IORDERINGSC = $(IMETIS) $(IPORD) $(ISCOTCH)
++# End orderings
++################################################################################
++
++PLAT    =
++LIBEXT  = .so
++OUTC    = -o
++OUTF    = -o
++FC = gfortran
++FL = $(FC)
++
++LAPACK = -llapack
++
++INCSEQ = -I$(topdir)/libseq
++LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
++
++LIBBLAS = -lblas
++LIBOTHERS = -lpthread
++
++#Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
++CDEFS   = -DAdd_
++
++#Begin Optimized options
++# uncomment -fopenmp in lines below to benefit from OpenMP
++
++EXTRA_CFLAGS = -fPIC -O2 -fopenmp $(CFLAGS)
++EXTRA_FFLAGS = $(EXTRA_CFLAGS)
++
++OPTF    = $(EXTRA_FFLAGS)
++OPTL    = -fopenmp
++OPTC    = $(EXTRA_CFLAGS)
++#End Optimized options
++
++INCS = $(INCSEQ)
++LIBS = $(LIBSEQ)
++LIBSEQNEEDED = libseqneeded
++
++PACK_LIB = $(CC) -shared -o
+diff --git libseq/Makefile libseq/Makefile
+index 17a71ab..9fbae9d 100644
+--- libseq/Makefile
++++ libseq/Makefile
+@@ -11,8 +11,8 @@ include ../Makefile.inc
+ libmpiseq: libmpiseq$(PLAT)$(LIBEXT)
+ 
+ libmpiseq$(PLAT)$(LIBEXT): mpi.o mpic.o elapse.o
+-	$(AR)$@ mpi.o mpic.o elapse.o
+-	$(RANLIB) $@
++	$(PACK_LIB) $@ mpi.o mpic.o elapse.o
++
+ .f.o:
+ 	$(FC) $(OPTF)              -c $*.f $(OUTF)$*.o
+ .c.o:
+diff --git src/Makefile src/Makefile
+index 88fc032..906cc2e 100644
+--- src/Makefile
++++ src/Makefile
+@@ -168,12 +168,10 @@ OBJS_OTHER = \
+         $(ARITH)type3_root.o
+ 
+ $(libdir)/libmumps_common$(PLAT)$(LIBEXT):      $(OBJS_COMMON_MOD) $(OBJS_COMMON_OTHER)
+-	$(AR)$@ $?
+-	$(RANLIB) $@
++	$(PACK_LIB) $@ $?
+ 
+ $(libdir)/lib$(ARITH)mumps$(PLAT)$(LIBEXT):    $(OBJS_MOD) $(OBJS_OTHER)
+-	$(AR)$@ $?
+-	$(RANLIB) $@
++	$(PACK_LIB) $@ $?
+ 
+ # Dependencies between modules:
+ $(ARITH)mumps_load.o:		$(ARITH)mumps_comm_buffer.o \
