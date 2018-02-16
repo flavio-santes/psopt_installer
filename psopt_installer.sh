@@ -182,14 +182,16 @@ install_lusol()
 	cd "$root_dir/tmp"
 	unzip "$root_dir/packages/lusol.zip"
 	cd lusol/csrc
+	patch -p0 < $root_dir/patches/LUSOL_max.diff
 	cp "$root_dir/scripts/Makefile_lusol" Makefile
 	make -f Makefile
 
 	mkdir -p $binary_dir/lib
 	mkdir -p $binary_dir/include/lusol
 
-	cp liblusol.a $binary_dir/lib
+	cp lib*.so $binary_dir/lib
 	cp *.h $binary_dir/include/lusol
+	chmod 644 -R $binary_dir/include/lusol/*.h
 }
 
 install_cxsparse()
@@ -243,7 +245,7 @@ clean)
 	install_ipopt
 	install_colpack
 	install_adol_c
-#	install_lusol
+	install_lusol
 #	install_cxsparse
 #	install_psopt
 	;;
