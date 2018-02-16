@@ -156,9 +156,10 @@ install_colpack()
 	patch -p0 < $root_dir/patches/ColPack_utilities_extra.diff
 
 	$configure_cmd				\
-		--disable-shared
+		--disable-static
 
-	make && make install
+	make
+	make install
 }
 
 install_adol_c()
@@ -169,10 +170,11 @@ install_adol_c()
 
 	$configure_cmd				\
 		--with-colpack="$psopt_dir"	\
-		--disable-shared		\
+		--disable-static		\
 		--enable-sparse
 
-	make && make install
+	make
+	make install
 }
 
 install_lusol()
@@ -239,8 +241,8 @@ clean)
 	install_metis
 	install_mumps
 	install_ipopt
-#	install_colpack
-#	install_adol_c
+	install_colpack
+	install_adol_c
 #	install_lusol
 #	install_cxsparse
 #	install_psopt
