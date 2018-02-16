@@ -140,9 +140,11 @@ install_ipopt()
 	cd $root_dir/tmp/Ipopt-3.12.3
 	$configure_cmd				\
 		--disable-static		\
+		--with-mumps-lib		\
 		coin_skip_warn_cxxflags=yes
 
-	make && make install
+	make
+	make install
 }
 
 install_colpack()
@@ -236,7 +238,7 @@ clean)
 	configure_os
 	install_metis
 	install_mumps
-#	install_ipopt
+	install_ipopt
 #	install_colpack
 #	install_adol_c
 #	install_lusol
