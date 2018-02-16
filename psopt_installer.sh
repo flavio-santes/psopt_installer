@@ -198,15 +198,17 @@ install_cxsparse()
 {
 	cd $root_dir/tmp
 	tar zxf $root_dir/packages/SuiteSparse-4.4.3.tar.gz
-	cd SuiteSparse/CXSparse
-	make
+	cd SuiteSparse
+	patch -p0 < $root_dir/patches/CXSparse_Makefile.diff
+	cd CXSparse
+	make library
 
 	incs=$binary_dir/include/cxsparse
 	mkdir -p $incs
 
 	cp Include/cs.h $incs
 	cp ../SuiteSparse_config/SuiteSparse_config.h $incs
-	cp Lib/libcxsparse.a $binary_dir/lib
+	cp Lib/libcxsparse.* $binary_dir/lib
 }
 
 install_psopt()
@@ -246,7 +248,7 @@ clean)
 	install_colpack
 	install_adol_c
 	install_lusol
-#	install_cxsparse
+	install_cxsparse
 #	install_psopt
 	;;
 esac

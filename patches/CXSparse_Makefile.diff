@@ -1,0 +1,38 @@
+diff --git CXSparse/Lib/Makefile CXSparse/Lib/Makefile
+index 3c10cf2..e0b61a9 100644
+--- CXSparse/Lib/Makefile
++++ CXSparse/Lib/Makefile
+@@ -1,5 +1,5 @@
+ # CC = cc
+-# CF = -O
++CF = -O2 -fPIC
+ 
+ default: all
+ 
+@@ -7,7 +7,7 @@ include ../../SuiteSparse_config/SuiteSparse_config.mk
+ 
+ I = -I../../SuiteSparse_config -I../Include
+ 
+-all: libcxsparse.a
++all: libcxsparse.so
+ 
+ CS_SOURCE = cs_add.c cs_amd.c cs_chol.c cs_cholsol.c cs_counts.c cs_cumsum.c \
+ 	cs_droptol.c cs_dropzeros.c cs_dupl.c cs_entry.c \
+@@ -86,9 +86,8 @@ cs_convert.o: ../Source/cs_convert.c
+ %_cl.o : ../Source/%.c
+ 	$(CC) $(CF) $(I) -DCS_LONG -DCS_COMPLEX -c $< -o $@
+ 
+-libcxsparse.a: $(CS)
+-	$(ARCHIVE)  libcxsparse.a $(CS)
+-	- $(RANLIB) libcxsparse.a
++libcxsparse.so: $(CS)
++	$(CC) -shared -o libcxsparse.so $(CS)
+ 
+ clean:
+ 	- $(RM) *.o
+@@ -96,4 +95,4 @@ clean:
+ purge: distclean
+ 
+ distclean: clean
+-	- $(RM) *.a
++	- $(RM) *.so
