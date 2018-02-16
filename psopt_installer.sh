@@ -48,8 +48,8 @@ redhat_pkgs()
 		gcc gcc-c++ gcc-gfortran	\
 		make patch			\
 		f2c		 		\
-		atlas atlas-devel		\
-		lapack lapack-devel		\
+		openblas-devel			\
+		lapack-devel			\
 		gnuplot wget git unzip cmake
 }
 
@@ -65,13 +65,6 @@ configure_os()
 		then
 			os_name="CentOS"
 			redhat_pkgs
-
-			# CentOS hack for cblas and atlas
-			cd /usr/lib64
-			if [ ! -e "libcblas.so" ]
-			then
-				sudo ln -s atlas/libsatlas.so libcblas.so
-			fi
 		else
 			echo "Unsupported OS :("
 			exit 1
