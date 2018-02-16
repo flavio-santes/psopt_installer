@@ -232,14 +232,14 @@ clean)
 	;;
 *)
 	clean_all
-	configure_os
-	download_metis
-	install_ipopt
-	install_colpack
-	install_adol_c
-	install_lusol
-	install_cxsparse
-	install_psopt
+#	configure_os
+#	download_metis
+#	install_ipopt
+#	install_colpack
+#	install_adol_c
+#	install_lusol
+#	install_cxsparse
+#	install_psopt
 	;;
 esac
 
