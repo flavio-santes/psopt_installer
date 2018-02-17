@@ -27,8 +27,10 @@ export LIBRARY_PATH="$LD_LIBRARY_PATH:$LIBRARY_PATH"
 export CFLAGS="-I$BINARY/include  -I$BINARY/include/mumps "
 
 CXXFLAGS="$CFLAGS"
-CXXFLAGS+=" -I$BINARY/include/lusol $CXXFLAGS"
-CXXFLAGS+=" -I$BINARY/include/cxsparse $CXXFLAGS"
-export CXXFLAGS+=" -I$BINARY/include/coin $CXXFLAGS"
+CXXFLAGS+=" -I$BINARY/include/lusol"
+CXXFLAGS+=" -I$BINARY/include/cxsparse"
+CXXFLAGS+=" -I$BINARY/include/coin"
+export CXXFLAGS
+
 export LDFLAGS=" -L$BINARY/lib -L$BINARY/lib64"
 
